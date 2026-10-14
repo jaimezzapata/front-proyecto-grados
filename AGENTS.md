@@ -124,4 +124,11 @@ Cada subcarpeta dentro de `src/features/[nombre-feature]/` debe ser autocontenid
    * Formato: `<tipo>(<alcance>): <descripción>`
    * Tipos: `feat:`, `fix:`, `docs:`, `refactor:`, `chore:`, `test:`, `style:`.
 
+3. **Estructura de Repositorios Independientes:**
+   * El proyecto se gestiona exclusivamente a través de dos repositorios Git independientes:
+     * Frontend: `https://github.com/jaimezzapata/front-proyecto-grados.git` (en `frontend/`).
+     * Backend: `https://github.com/jaimezzapata/back-proyecto-grados.git` (en `backend/`).
+   * No se utiliza ni se realizan commits en el directorio global de la raíz; todo versionamiento se ejecuta directamente dentro de cada proyecto respectivo (`frontend/` o `backend/`).
+
+
 
