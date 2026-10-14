@@ -112,3 +112,16 @@ Cada subcarpeta dentro de `src/features/[nombre-feature]/` debe ser autocontenid
      * Se oculta la opción limpiamente o se muestra un banner indicativo ("Funcionalidad disponible en plan Pro / Próximamente").
      * El resto de la aplicación (Login, Carga de Archivos, Generación básica) continúa operando con normalidad.
 
+---
+
+## 8. Convención de Commits y Versionamiento Atómico (Git)
+
+1. **Commits Atómicos en Frontend:**
+   * Crear commits pequeños y atómicos por cada componente, hook, servicio o vista creada/corregida.
+   * Prohibido subir pantallas completas monolíticas en un solo commit.
+
+2. **Convención Estricta (Conventional Commits):**
+   * Formato: `<tipo>(<alcance>): <descripción>`
+   * Tipos: `feat:`, `fix:`, `docs:`, `refactor:`, `chore:`, `test:`, `style:`.
+
+
