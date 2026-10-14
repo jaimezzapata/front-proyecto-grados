@@ -1,0 +1,321 @@
+/**
+ * Sistema de Tokens de Diseño Multiestilo
+ * Gobierna los 5 movimientos visuales: Minimalismo, Neobrutalismo, Pop Art, Memphis y Cyber Neón
+ * con soporte integral para Modo Claro (Light) y Modo Oscuro (Dark).
+ */
+
+:root {
+  /* Variables base globales */
+  --transition-speed: 0.2s;
+  --transition-timing: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ============================================================
+   1. MINIMALISMO (Swiss Modernism / Zen)
+   Líneas finas, amplio espacio negativo, máxima legibilidad
+   ============================================================ */
+[data-theme="minimalism"][data-mode="light"] {
+  --bg-primary: #F8FAFC;
+  --bg-surface: #FFFFFF;
+  --bg-surface-elevated: #FFFFFF;
+  --bg-surface-hover: #F1F5F9;
+  --text-primary: #0F172A;
+  --text-secondary: #475569;
+  --text-muted: #94A3B8;
+  --primary-color: #0F172A;
+  --primary-hover: #1E293B;
+  --primary-contrast: #FFFFFF;
+  --accent-color: #3B82F6;
+  --accent-hover: #2563EB;
+  --border-color: #E2E8F0;
+  --border-subtle: #F1F5F9;
+  --border-width: 1px;
+  --border-radius: 8px;
+  --border-radius-sm: 6px;
+  --border-radius-lg: 12px;
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.03);
+  --shadow-main: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.04);
+  --shadow-elevated: 0 10px 15px -3px rgba(0, 0, 0, 0.06), 0 4px 6px -4px rgba(0, 0, 0, 0.03);
+  --font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  --font-display: 'Plus Jakarta Sans', sans-serif;
+  --hero-gradient: linear-gradient(135deg, #0F172A 0%, #1E293B 100%);
+  --badge-bg: #F1F5F9;
+  --badge-text: #0F172A;
+}
+
+[data-theme="minimalism"][data-mode="dark"] {
+  --bg-primary: #0B0F19;
+  --bg-surface: #111827;
+  --bg-surface-elevated: #1F2937;
+  --bg-surface-hover: #1E293B;
+  --text-primary: #F9FAFB;
+  --text-secondary: #9CA3AF;
+  --text-muted: #6B7280;
+  --primary-color: #F9FAFB;
+  --primary-hover: #E5E7EB;
+  --primary-contrast: #0F172A;
+  --accent-color: #60A5FA;
+  --accent-hover: #3B82F6;
+  --border-color: #1F2937;
+  --border-subtle: #162032;
+  --border-width: 1px;
+  --border-radius: 8px;
+  --border-radius-sm: 6px;
+  --border-radius-lg: 12px;
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+  --shadow-main: 0 4px 6px -1px rgba(0, 0, 0, 0.4);
+  --shadow-elevated: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+  --font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  --font-display: 'Plus Jakarta Sans', sans-serif;
+  --hero-gradient: linear-gradient(135deg, #111827 0%, #1F2937 100%);
+  --badge-bg: #1F2937;
+  --badge-text: #F9FAFB;
+}
+
+/* ============================================================
+   2. NEOBRUTALISMO
+   Bordes negros gruesos, sombras duras sólidas, esquinas rectas
+   ============================================================ */
+[data-theme="brutalism"][data-mode="light"] {
+  --bg-primary: #FFFDF5;
+  --bg-surface: #FFFFFF;
+  --bg-surface-elevated: #FFE600;
+  --bg-surface-hover: #FFFBE6;
+  --text-primary: #000000;
+  --text-secondary: #222222;
+  --text-muted: #555555;
+  --primary-color: #000000;
+  --primary-hover: #222222;
+  --primary-contrast: #FFFFFF;
+  --accent-color: #FFE600;
+  --accent-hover: #FFD000;
+  --border-color: #000000;
+  --border-subtle: #000000;
+  --border-width: 2.5px;
+  --border-radius: 0px;
+  --border-radius-sm: 0px;
+  --border-radius-lg: 0px;
+  --shadow-sm: 2px 2px 0px #000000;
+  --shadow-main: 5px 5px 0px #000000;
+  --shadow-elevated: 8px 8px 0px #000000;
+  --font-family: 'Space Grotesk', system-ui, monospace;
+  --font-display: 'Space Grotesk', monospace;
+  --hero-gradient: #FFE600;
+  --badge-bg: #000000;
+  --badge-text: #FFE600;
+}
+
+[data-theme="brutalism"][data-mode="dark"] {
+  --bg-primary: #121214;
+  --bg-surface: #1E1E24;
+  --bg-surface-elevated: #CCFF00;
+  --bg-surface-hover: #2A2A32;
+  --text-primary: #FFFFFF;
+  --text-secondary: #D4D4D8;
+  --text-muted: #A1A1AA;
+  --primary-color: #CCFF00;
+  --primary-hover: #B8E600;
+  --primary-contrast: #000000;
+  --accent-color: #FF0055;
+  --accent-hover: #E6004C;
+  --border-color: #FFFFFF;
+  --border-subtle: #D4D4D8;
+  --border-width: 2.5px;
+  --border-radius: 0px;
+  --border-radius-sm: 0px;
+  --border-radius-lg: 0px;
+  --shadow-sm: 2px 2px 0px #FFFFFF;
+  --shadow-main: 5px 5px 0px #FFFFFF;
+  --shadow-elevated: 8px 8px 0px #FFFFFF;
+  --font-family: 'Space Grotesk', system-ui, monospace;
+  --font-display: 'Space Grotesk', monospace;
+  --hero-gradient: #1E1E24;
+  --badge-bg: #CCFF00;
+  --badge-text: #000000;
+}
+
+/* ============================================================
+   3. POP ART
+   Colores primarios explosivos, viñetas, arte de cómic
+   ============================================================ */
+[data-theme="popart"][data-mode="light"] {
+  --bg-primary: #FFF9E6;
+  --bg-surface: #FFFFFF;
+  --bg-surface-elevated: #FF3366;
+  --bg-surface-hover: #FFE6EE;
+  --text-primary: #111111;
+  --text-secondary: #333333;
+  --text-muted: #666666;
+  --primary-color: #FF3366;
+  --primary-hover: #E02456;
+  --primary-contrast: #FFFFFF;
+  --accent-color: #FFCC00;
+  --accent-hover: #E6B800;
+  --border-color: #111111;
+  --border-subtle: #111111;
+  --border-width: 2px;
+  --border-radius: 8px;
+  --border-radius-sm: 4px;
+  --border-radius-lg: 12px;
+  --shadow-sm: 3px 3px 0px #00D2FF;
+  --shadow-main: 5px 5px 0px #00D2FF;
+  --shadow-elevated: 7px 7px 0px #FFCC00;
+  --font-family: 'Syne', system-ui, sans-serif;
+  --font-display: 'Syne', sans-serif;
+  --hero-gradient: linear-gradient(135deg, #FF3366 0%, #FFCC00 100%);
+  --badge-bg: #00D2FF;
+  --badge-text: #111111;
+}
+
+[data-theme="popart"][data-mode="dark"] {
+  --bg-primary: #150D2A;
+  --bg-surface: #21133F;
+  --bg-surface-elevated: #FF0055;
+  --bg-surface-hover: #2E1B57;
+  --text-primary: #FFFFFF;
+  --text-secondary: #E2D9F3;
+  --text-muted: #9F8EC4;
+  --primary-color: #FF007F;
+  --primary-hover: #E60072;
+  --primary-contrast: #FFFFFF;
+  --accent-color: #00F0FF;
+  --accent-hover: #00D5E6;
+  --border-color: #FFCC00;
+  --border-subtle: #FF007F;
+  --border-width: 2px;
+  --border-radius: 8px;
+  --border-radius-sm: 4px;
+  --border-radius-lg: 12px;
+  --shadow-sm: 3px 3px 0px #FFCC00;
+  --shadow-main: 5px 5px 0px #00F0FF;
+  --shadow-elevated: 7px 7px 0px #FF007F;
+  --font-family: 'Syne', system-ui, sans-serif;
+  --font-display: 'Syne', sans-serif;
+  --hero-gradient: linear-gradient(135deg, #FF007F 0%, #00F0FF 100%);
+  --badge-bg: #FFCC00;
+  --badge-text: #150D2A;
+}
+
+/* ============================================================
+   4. MEMPHIS DESIGN
+   Colores pastel lúdicos de los 80, geometría orgánica
+   ============================================================ */
+[data-theme="memphis"][data-mode="light"] {
+  --bg-primary: #F0FDF4;
+  --bg-surface: #FFFFFF;
+  --bg-surface-elevated: #6C5CE7;
+  --bg-surface-hover: #FAF5FF;
+  --text-primary: #2D3748;
+  --text-secondary: #4A5568;
+  --text-muted: #718096;
+  --primary-color: #6C5CE7;
+  --primary-hover: #5B4BC4;
+  --primary-contrast: #FFFFFF;
+  --accent-color: #FD79A8;
+  --accent-hover: #E84393;
+  --border-color: #2D3748;
+  --border-subtle: #A29BFE;
+  --border-width: 2px;
+  --border-radius: 16px;
+  --border-radius-sm: 10px;
+  --border-radius-lg: 24px;
+  --shadow-sm: 3px 3px 0px #00CEC9;
+  --shadow-main: 5px 5px 0px #FD79A8;
+  --shadow-elevated: 8px 8px 0px #6C5CE7;
+  --font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  --font-display: 'Plus Jakarta Sans', sans-serif;
+  --hero-gradient: linear-gradient(135deg, #6C5CE7 0%, #FD79A8 100%);
+  --badge-bg: #00CEC9;
+  --badge-text: #2D3748;
+}
+
+[data-theme="memphis"][data-mode="dark"] {
+  --bg-primary: #130E24;
+  --bg-surface: #1E1638;
+  --bg-surface-elevated: #A29BFE;
+  --bg-surface-hover: #2B1F50;
+  --text-primary: #F8F9FA;
+  --text-secondary: #D1D5DB;
+  --text-muted: #9CA3AF;
+  --primary-color: #A29BFE;
+  --primary-hover: #8C82FC;
+  --primary-contrast: #130E24;
+  --accent-color: #FF7675;
+  --accent-hover: #D63031;
+  --border-color: #A29BFE;
+  --border-subtle: #6C5CE7;
+  --border-width: 2px;
+  --border-radius: 16px;
+  --border-radius-sm: 10px;
+  --border-radius-lg: 24px;
+  --shadow-sm: 3px 3px 0px #55EFC4;
+  --shadow-main: 5px 5px 0px #FD79A8;
+  --shadow-elevated: 8px 8px 0px #A29BFE;
+  --font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  --font-display: 'Plus Jakarta Sans', sans-serif;
+  --hero-gradient: linear-gradient(135deg, #A29BFE 0%, #FD79A8 100%);
+  --badge-bg: #55EFC4;
+  --badge-text: #130E24;
+}
+
+/* ============================================================
+   5. CYBER NEÓN
+   Resplandor luminoso (Glow), cristal ahumado (Glassmorphism)
+   ============================================================ */
+[data-theme="neon"][data-mode="light"] {
+  --bg-primary: #F0F4F8;
+  --bg-surface: rgba(255, 255, 255, 0.85);
+  --bg-surface-elevated: #0066FF;
+  --bg-surface-hover: rgba(255, 255, 255, 0.95);
+  --text-primary: #0A1128;
+  --text-secondary: #2C3E50;
+  --text-muted: #7F8C8D;
+  --primary-color: #0066FF;
+  --primary-hover: #0052CC;
+  --primary-contrast: #FFFFFF;
+  --accent-color: #00F0FF;
+  --accent-hover: #00D5E6;
+  --border-color: rgba(0, 102, 255, 0.35);
+  --border-subtle: rgba(0, 102, 255, 0.15);
+  --border-width: 1.5px;
+  --border-radius: 14px;
+  --border-radius-sm: 8px;
+  --border-radius-lg: 20px;
+  --shadow-sm: 0 0 10px rgba(0, 102, 255, 0.15);
+  --shadow-main: 0 4px 20px rgba(0, 102, 255, 0.2), 0 0 1px rgba(0, 102, 255, 0.5);
+  --shadow-elevated: 0 8px 30px rgba(0, 102, 255, 0.3);
+  --font-family: 'Outfit', system-ui, sans-serif;
+  --font-display: 'Outfit', sans-serif;
+  --hero-gradient: linear-gradient(135deg, #0066FF 0%, #00F0FF 100%);
+  --badge-bg: rgba(0, 102, 255, 0.12);
+  --badge-text: #0066FF;
+}
+
+[data-theme="neon"][data-mode="dark"] {
+  --bg-primary: #06070B;
+  --bg-surface: rgba(13, 17, 26, 0.75);
+  --bg-surface-elevated: #111827;
+  --bg-surface-hover: rgba(22, 28, 42, 0.85);
+  --text-primary: #FFFFFF;
+  --text-secondary: #94A3B8;
+  --text-muted: #64748B;
+  --primary-color: #00F0FF;
+  --primary-hover: #33F3FF;
+  --primary-contrast: #06070B;
+  --accent-color: #FF007F;
+  --accent-hover: #FF3399;
+  --border-color: rgba(0, 240, 255, 0.4);
+  --border-subtle: rgba(0, 240, 255, 0.15);
+  --border-width: 1.5px;
+  --border-radius: 14px;
+  --border-radius-sm: 8px;
+  --border-radius-lg: 20px;
+  --shadow-sm: 0 0 10px rgba(0, 240, 255, 0.25);
+  --shadow-main: 0 0 25px rgba(0, 240, 255, 0.3), inset 0 0 15px rgba(0, 240, 255, 0.05);
+  --shadow-elevated: 0 0 40px rgba(255, 0, 127, 0.35);
+  --font-family: 'Outfit', system-ui, sans-serif;
+  --font-display: 'Outfit', sans-serif;
+  --hero-gradient: linear-gradient(135deg, #00F0FF 0%, #FF007F 100%);
+  --badge-bg: rgba(0, 240, 255, 0.15);
+  --badge-text: #00F0FF;
+}

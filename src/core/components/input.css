@@ -1,0 +1,93 @@
+.core-input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 100%;
+  font-family: var(--font-family);
+  text-align: left;
+}
+
+.core-input-label {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.core-input-required {
+  color: #EF4444;
+}
+
+.core-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.core-input-field {
+  width: 100%;
+  padding: 10px 14px;
+  font-family: var(--font-family);
+  font-size: 0.92rem;
+  background-color: var(--bg-surface);
+  color: var(--text-primary);
+  border: var(--border-width) solid var(--border-color);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-sm);
+  outline: none;
+  transition: all var(--transition-speed) var(--transition-timing);
+}
+
+.core-input-field:focus {
+  border-color: var(--primary-color);
+  box-shadow: var(--shadow-main);
+}
+
+.core-input-field--with-icon {
+  padding-left: 38px;
+}
+
+.core-input-field--with-toggle {
+  padding-right: 38px;
+}
+
+.core-input-icon-left {
+  position: absolute;
+  left: 12px;
+  display: flex;
+  align-items: center;
+  color: var(--text-muted);
+  pointer-events: none;
+}
+
+.core-input-toggle-btn {
+  position: absolute;
+  right: 12px;
+  display: flex;
+  align-items: center;
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 0;
+  transition: color var(--transition-speed);
+}
+
+.core-input-toggle-btn:hover {
+  color: var(--text-primary);
+}
+
+.core-input-error-msg {
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: #EF4444;
+}
+
+.core-input-helper-msg {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+.core-input-group--error .core-input-field {
+  border-color: #EF4444 !important;
+}
