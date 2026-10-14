@@ -130,5 +130,36 @@ Cada subcarpeta dentro de `src/features/[nombre-feature]/` debe ser autocontenid
      * Backend: `https://github.com/jaimezzapata/back-proyecto-grados.git` (en `backend/`).
    * No se utiliza ni se realizan commits en el directorio global de la raíz; todo versionamiento se ejecuta directamente dentro de cada proyecto respectivo (`frontend/` o `backend/`).
 
+---
+
+## 9. Sistema de Temas Visuales Multiestilo y Modos Claro / Oscuro
+
+Para ofrecer una experiencia visual única y personalizable, el frontend debe soportar un motor de conmutación de estilos basado estrictamente en **Tokens Semánticos de CSS** (`data-theme` y `data-mode` en el elemento raíz `<html>` o contenedor principal).
+
+### 9.1 Catálogo de Estilos Artísticos Soportados:
+
+1. **Minimalismo (Swiss Modernism / Zen):**
+   * **Concepto:** Sobriedad absoluta, enfoque total en el contenido, amplio espacio negativo, líneas sutiles y micro-interacciones imperceptibles. Diseñado para docentes que prefieren una interfaz libre de distracciones visuales.
+   * **Tokens:** Bordes ultrafinos (`1px solid var(--border-subtle)`), sombras difusas tenues, tipografía limpia (*Inter* / *Plus Jakarta Sans*) y paleta neutra monocromática con un único acento refinado.
+   * **Variantes:** Modo Claro (blanco perla y gris pizarra tenue) y Modo Oscuro (carbón mate y gris niebla).
+
+2. **Neobrutalismo:**
+   * **Concepto:** Geometrías puras, bordes negros gruesos (`2.5px solid #000`), sombras duras sin desenfoque (`4px 4px 0px #000`), esquinas rectangulares y botones con sensación de pulsado mecánico.
+
+3. **Pop Art:**
+   * **Concepto:** Inspirado en Lichtenstein y Warhol; paleta primaria vibrante (amarillo, cian, magenta), micro-tramas de semitono (*halftone dots*) y etiquetas con aspecto de viñeta editorial.
+
+4. **Memphis Design:**
+   * **Concepto:** Vanguardia de los años 80; patrones geométricos lúdicos (zigzags, triángulos, píldoras), esquinas redondeadas orgánicas y paleta en tonos pastel audaces (menta, coral, lila).
+
+5. **Cyber Neón:**
+   * **Concepto:** Estética Synthwave / Cyberpunk; resplandores luminosos exteriores (*outer glows* cian y fucsia), tarjetas translúcidas de cristal (*glassmorphism*) y sensación de terminal avanzada de IA.
+
+### 9.2 Regla de Oro DRY para Estilos (Prohibida la Lógica Duplicada):
+* **Prohibido condicionar componentes con lógica JSX:** Ningún componente visual debe tener condicionales del tipo `if (theme === 'neon')` o `className={theme === 'brutalist' ? '...' : '...'}`.
+* **Componentes Agnósticos:** Los componentes de `src/core/components/` (`Button`, `Card`, `Input`, `Badge`) deben ser agnósticos y consumir exclusivamente variables CSS globales (ej. `border: var(--border-width) solid var(--border-color); box-shadow: var(--shadow-main);`).
+* **Conmutación Universal:** El estado del tema (`theme`: `minimalism | brutalism | popart | memphis | neon`) y el modo (`mode`: `light | dark`) se gestiona centralizadamente mediante un hook global `useTheme()` en `src/core/theme/ThemeContext.jsx` y se persiste en `localStorage`.
+
+
 
 
