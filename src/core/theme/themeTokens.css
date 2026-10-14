@@ -1,21 +1,292 @@
 /**
  * Sistema de Tokens de Diseño Multiestilo
- * Gobierna los 5 movimientos visuales: Minimalismo, Neobrutalismo, Pop Art, Memphis y Cyber Neón
- * con soporte integral para Modo Claro (Light) y Modo Oscuro (Dark).
+ * Inspirado fielmente en:
+ * - Pop Art: Puntos de cómic (Halftone), fondo amarillo sólido, bordes negros 3px, sombras 6px duras, cinta de peligro rosa/amarilla.
+ * - Brutalismo: Cuadrícula técnica (Blueprint grid), bordes negros 2.5px, sombras duras 5px, cinta de precaución amarilla/negra, esquinas 0px.
+ * - Memphis: Puntos geométricos, bordes gruesos redondeados 18px, sombras duras desplazadas, bloques pastel sólidos (amarillo, cian, rosa).
+ * - Minimalismo: Cero patrones, neutro plano, bordes finos 1px, máxima sobriedad.
+ * - Cyber Neón: Único con degradados y resplandores luminosos (Glows).
  */
 
 :root {
-  /* Variables base globales */
-  --transition-speed: 0.2s;
-  --transition-timing: cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-speed: 0.15s;
+  --transition-timing: cubic-bezier(0.2, 0, 0, 1);
 }
 
 /* ============================================================
-   1. MINIMALISMO (Swiss Modernism / Zen)
-   Líneas finas, amplio espacio negativo, máxima legibilidad
+   1. POP ART (Inspiración Cómic / Lichtenstein)
+   Fondo amarillo puro con puntos de cómic, bordes 3px, cero degradados
+   ============================================================ */
+[data-theme="popart"][data-mode="light"] {
+  --bg-primary: #FFDE00;
+  --bg-pattern: radial-gradient(#111111 1.8px, transparent 1.8px);
+  --bg-pattern-size: 16px 16px;
+  --bg-surface: #FFFFFF;
+  --bg-surface-elevated: #FFF066;
+  --bg-surface-hover: #FFF9C4;
+  --text-primary: #000000;
+  --text-secondary: #222222;
+  --text-muted: #555555;
+  --primary-color: #FF007A; /* Magenta Cómic */
+  --primary-hover: #E0006C;
+  --primary-contrast: #FFFFFF;
+  --accent-color: #00D2FF;  /* Cian Pop */
+  --accent-hover: #00B8E6;
+  --accent-yellow: #FFDE00;
+  --border-color: #000000;
+  --border-subtle: #000000;
+  --border-width: 3px;
+  --border-radius: 4px;
+  --border-radius-sm: 2px;
+  --border-radius-lg: 6px;
+  --shadow-sm: 3px 3px 0px #000000;
+  --shadow-main: 6px 6px 0px #000000;
+  --shadow-elevated: 9px 9px 0px #000000;
+  --font-family: 'Space Grotesk', system-ui, sans-serif;
+  --font-display: 'Syne', system-ui, sans-serif;
+  --font-display-transform: uppercase;
+  --font-display-style: italic;
+  --font-display-weight: 800;
+  --hazard-bar: repeating-linear-gradient(-45deg, #FF007A, #FF007A 12px, #000000 12px, #000000 24px);
+  --badge-bg: #FF007A;
+  --badge-text: #FFFFFF;
+  --badge-rotation: -2deg;
+  --card-header-bg: #FFDE00;
+  --step-1-color: #00D2FF;
+  --step-2-color: #FFDE00;
+  --step-3-color: #FF007A;
+  --styles-tab-bg: #FF007A;
+  --styles-tab-color: #FFFFFF;
+}
+
+[data-theme="popart"][data-mode="dark"] {
+  --bg-primary: #1A0B2E;
+  --bg-pattern: radial-gradient(#FF007A 1.8px, transparent 1.8px);
+  --bg-pattern-size: 16px 16px;
+  --bg-surface: #271444;
+  --bg-surface-elevated: #FFDE00;
+  --bg-surface-hover: #351C5C;
+  --text-primary: #FFFFFF;
+  --text-secondary: #E9D5FF;
+  --text-muted: #C084FC;
+  --primary-color: #FF007A;
+  --primary-hover: #FF3399;
+  --primary-contrast: #FFFFFF;
+  --accent-color: #00F0FF;
+  --accent-hover: #33F3FF;
+  --accent-yellow: #FFDE00;
+  --border-color: #FFDE00;
+  --border-subtle: #FF007A;
+  --border-width: 3px;
+  --border-radius: 4px;
+  --border-radius-sm: 2px;
+  --border-radius-lg: 6px;
+  --shadow-sm: 3px 3px 0px #FF007A;
+  --shadow-main: 6px 6px 0px #00F0FF;
+  --shadow-elevated: 9px 9px 0px #FFDE00;
+  --font-family: 'Space Grotesk', system-ui, sans-serif;
+  --font-display: 'Syne', system-ui, sans-serif;
+  --font-display-transform: uppercase;
+  --font-display-style: italic;
+  --font-display-weight: 800;
+  --hazard-bar: repeating-linear-gradient(-45deg, #FF007A, #FF007A 12px, #FFDE00 12px, #FFDE00 24px);
+  --badge-bg: #FFDE00;
+  --badge-text: #000000;
+  --badge-rotation: -2deg;
+  --card-header-bg: #FF007A;
+  --step-1-color: #00F0FF;
+  --step-2-color: #FFDE00;
+  --step-3-color: #FF007A;
+  --styles-tab-bg: #FFDE00;
+  --styles-tab-color: #000000;
+}
+
+/* ============================================================
+   2. NEOBRUTALISMO (Inspiración Industrial / Blueprint)
+   Cuadrícula milimétrica, cinta de precaución negra y amarilla, esquinas 0px
+   ============================================================ */
+[data-theme="brutalism"][data-mode="light"] {
+  --bg-primary: #FFFFFF;
+  --bg-pattern: linear-gradient(to right, #E5E7EB 1.2px, transparent 1.2px), linear-gradient(to bottom, #E5E7EB 1.2px, transparent 1.2px);
+  --bg-pattern-size: 24px 24px;
+  --bg-surface: #FFFFFF;
+  --bg-surface-elevated: #FFE600;
+  --bg-surface-hover: #F4F4F5;
+  --text-primary: #000000;
+  --text-secondary: #27272A;
+  --text-muted: #52525B;
+  --primary-color: #000000;
+  --primary-hover: #18181B;
+  --primary-contrast: #FFFFFF;
+  --accent-color: #FFE600; /* Amarillo Precaución */
+  --accent-hover: #E6CF00;
+  --accent-yellow: #FFE600;
+  --border-color: #000000;
+  --border-subtle: #000000;
+  --border-width: 2.5px;
+  --border-radius: 0px;
+  --border-radius-sm: 0px;
+  --border-radius-lg: 0px;
+  --shadow-sm: 2px 2px 0px #000000;
+  --shadow-main: 5px 5px 0px #000000;
+  --shadow-elevated: 8px 8px 0px #000000;
+  --font-family: 'Space Grotesk', monospace, sans-serif;
+  --font-display: 'Space Grotesk', monospace, sans-serif;
+  --font-display-transform: uppercase;
+  --font-display-style: normal;
+  --font-display-weight: 800;
+  --hazard-bar: repeating-linear-gradient(45deg, #000000, #000000 14px, #FFE600 14px, #FFE600 28px);
+  --badge-bg: #FFE600;
+  --badge-text: #000000;
+  --badge-rotation: 0deg;
+  --card-header-bg: #000000;
+  --step-1-color: #FFFFFF;
+  --step-2-color: #FFE600;
+  --step-3-color: #FFFFFF;
+  --styles-tab-bg: #000000;
+  --styles-tab-color: #FFE600;
+}
+
+[data-theme="brutalism"][data-mode="dark"] {
+  --bg-primary: #0A0A0A;
+  --bg-pattern: linear-gradient(to right, #222222 1.2px, transparent 1.2px), linear-gradient(to bottom, #222222 1.2px, transparent 1.2px);
+  --bg-pattern-size: 24px 24px;
+  --bg-surface: #141414;
+  --bg-surface-elevated: #FFE600;
+  --bg-surface-hover: #222222;
+  --text-primary: #FFFFFF;
+  --text-secondary: #E4E4E7;
+  --text-muted: #A1A1AA;
+  --primary-color: #FFE600;
+  --primary-hover: #FFF04D;
+  --primary-contrast: #000000;
+  --accent-color: #CCFF00;
+  --accent-hover: #E2FF4D;
+  --accent-yellow: #FFE600;
+  --border-color: #FFFFFF;
+  --border-subtle: #FFFFFF;
+  --border-width: 2.5px;
+  --border-radius: 0px;
+  --border-radius-sm: 0px;
+  --border-radius-lg: 0px;
+  --shadow-sm: 2px 2px 0px #FFFFFF;
+  --shadow-main: 5px 5px 0px #FFFFFF;
+  --shadow-elevated: 8px 8px 0px #FFE600;
+  --font-family: 'Space Grotesk', monospace, sans-serif;
+  --font-display: 'Space Grotesk', monospace, sans-serif;
+  --font-display-transform: uppercase;
+  --font-display-style: normal;
+  --font-display-weight: 800;
+  --hazard-bar: repeating-linear-gradient(45deg, #FFE600, #FFE600 14px, #000000 14px, #000000 28px);
+  --badge-bg: #FFE600;
+  --badge-text: #000000;
+  --badge-rotation: 0deg;
+  --card-header-bg: #FFE600;
+  --step-1-color: #141414;
+  --step-2-color: #FFE600;
+  --step-3-color: #141414;
+  --styles-tab-bg: #FFE600;
+  --styles-tab-color: #000000;
+}
+
+/* ============================================================
+   3. MEMPHIS 90s (Vanguardia Lúdica / Sólidos Planos)
+   Fondo crema con puntos rosados/terracota, bordes 3px morados, radio 18px
+   ============================================================ */
+[data-theme="memphis"][data-mode="light"] {
+  --bg-primary: #FFF8F0;
+  --bg-pattern: radial-gradient(#F87171 1.8px, transparent 1.8px);
+  --bg-pattern-size: 22px 22px;
+  --bg-surface: #FFFFFF;
+  --bg-surface-elevated: #FDE047;
+  --bg-surface-hover: #FFF1F2;
+  --text-primary: #1E1B4B;
+  --text-secondary: #312E81;
+  --text-muted: #6366F1;
+  --primary-color: #4F46E5; /* Índigo Memphis */
+  --primary-hover: #4338CA;
+  --primary-contrast: #FFFFFF;
+  --accent-color: #F43F5E;  /* Coral Fresa */
+  --accent-hover: #E11D48;
+  --accent-yellow: #FDE047; /* Banana */
+  --accent-cyan: #38BDF8;
+  --border-color: #1E1B4B;
+  --border-subtle: #4F46E5;
+  --border-width: 3px;
+  --border-radius: 18px;
+  --border-radius-sm: 10px;
+  --border-radius-lg: 24px;
+  --shadow-sm: 3px 3px 0px #1E1B4B;
+  --shadow-main: 6px 6px 0px #1E1B4B;
+  --shadow-elevated: 9px 9px 0px #F43F5E;
+  --font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  --font-display: 'Plus Jakarta Sans', sans-serif;
+  --font-display-transform: uppercase;
+  --font-display-style: normal;
+  --font-display-weight: 800;
+  --hazard-bar: repeating-linear-gradient(-45deg, #F43F5E, #F43F5E 12px, #FDE047 12px, #FDE047 24px);
+  --badge-bg: #F43F5E;
+  --badge-text: #FFFFFF;
+  --badge-rotation: 1.5deg;
+  --card-header-bg: #FDE047;
+  --step-1-color: #38BDF8;
+  --step-2-color: #FDE047;
+  --step-3-color: #F43F5E;
+  --styles-tab-bg: #F43F5E;
+  --styles-tab-color: #FFFFFF;
+}
+
+[data-theme="memphis"][data-mode="dark"] {
+  --bg-primary: #151128;
+  --bg-pattern: radial-gradient(#A78BFA 1.8px, transparent 1.8px);
+  --bg-pattern-size: 22px 22px;
+  --bg-surface: #221A3F;
+  --bg-surface-elevated: #FDE047;
+  --bg-surface-hover: #2E2355;
+  --text-primary: #FFFFFF;
+  --text-secondary: #DDD6FE;
+  --text-muted: #A78BFA;
+  --primary-color: #A78BFA;
+  --primary-hover: #C4B5FD;
+  --primary-contrast: #151128;
+  --accent-color: #FB7185;
+  --accent-hover: #FDA4AF;
+  --accent-yellow: #FDE047;
+  --accent-cyan: #38BDF8;
+  --border-color: #DDD6FE;
+  --border-subtle: #A78BFA;
+  --border-width: 3px;
+  --border-radius: 18px;
+  --border-radius-sm: 10px;
+  --border-radius-lg: 24px;
+  --shadow-sm: 3px 3px 0px #A78BFA;
+  --shadow-main: 6px 6px 0px #FDE047;
+  --shadow-elevated: 9px 9px 0px #FB7185;
+  --font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  --font-display: 'Plus Jakarta Sans', sans-serif;
+  --font-display-transform: uppercase;
+  --font-display-style: normal;
+  --font-display-weight: 800;
+  --hazard-bar: repeating-linear-gradient(-45deg, #A78BFA, #A78BFA 12px, #FB7185 12px, #FB7185 24px);
+  --badge-bg: #FDE047;
+  --badge-text: #151128;
+  --badge-rotation: 1.5deg;
+  --card-header-bg: #A78BFA;
+  --step-1-color: #38BDF8;
+  --step-2-color: #FDE047;
+  --step-3-color: #FB7185;
+  --styles-tab-bg: #FB7185;
+  --styles-tab-color: #151128;
+}
+
+/* ============================================================
+   4. MINIMALISMO (Swiss Modernism / Zen)
+   Cero patrones de fondo, planos neutros limpios, bordes finos 1px
    ============================================================ */
 [data-theme="minimalism"][data-mode="light"] {
   --bg-primary: #F8FAFC;
+  --bg-pattern: none;
+  --bg-pattern-size: auto;
   --bg-surface: #FFFFFF;
   --bg-surface-elevated: #FFFFFF;
   --bg-surface-hover: #F1F5F9;
@@ -27,24 +298,37 @@
   --primary-contrast: #FFFFFF;
   --accent-color: #3B82F6;
   --accent-hover: #2563EB;
+  --accent-yellow: #EAB308;
   --border-color: #E2E8F0;
   --border-subtle: #F1F5F9;
   --border-width: 1px;
   --border-radius: 8px;
   --border-radius-sm: 6px;
   --border-radius-lg: 12px;
-  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.03);
-  --shadow-main: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.04);
-  --shadow-elevated: 0 10px 15px -3px rgba(0, 0, 0, 0.06), 0 4px 6px -4px rgba(0, 0, 0, 0.03);
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.04);
+  --shadow-main: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  --shadow-elevated: 0 10px 15px -3px rgba(0, 0, 0, 0.07);
   --font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
   --font-display: 'Plus Jakarta Sans', sans-serif;
-  --hero-gradient: linear-gradient(135deg, #0F172A 0%, #1E293B 100%);
+  --font-display-transform: none;
+  --font-display-style: normal;
+  --font-display-weight: 700;
+  --hazard-bar: none;
   --badge-bg: #F1F5F9;
   --badge-text: #0F172A;
+  --badge-rotation: 0deg;
+  --card-header-bg: transparent;
+  --step-1-color: #F1F5F9;
+  --step-2-color: #E2E8F0;
+  --step-3-color: #F1F5F9;
+  --styles-tab-bg: #0F172A;
+  --styles-tab-color: #FFFFFF;
 }
 
 [data-theme="minimalism"][data-mode="dark"] {
   --bg-primary: #0B0F19;
+  --bg-pattern: none;
+  --bg-pattern-size: auto;
   --bg-surface: #111827;
   --bg-surface-elevated: #1F2937;
   --bg-surface-hover: #1E293B;
@@ -56,217 +340,44 @@
   --primary-contrast: #0F172A;
   --accent-color: #60A5FA;
   --accent-hover: #3B82F6;
+  --accent-yellow: #EAB308;
   --border-color: #1F2937;
   --border-subtle: #162032;
   --border-width: 1px;
   --border-radius: 8px;
   --border-radius-sm: 6px;
   --border-radius-lg: 12px;
-  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
-  --shadow-main: 0 4px 6px -1px rgba(0, 0, 0, 0.4);
-  --shadow-elevated: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.4);
+  --shadow-main: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
+  --shadow-elevated: 0 10px 15px -3px rgba(0, 0, 0, 0.6);
   --font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
   --font-display: 'Plus Jakarta Sans', sans-serif;
-  --hero-gradient: linear-gradient(135deg, #111827 0%, #1F2937 100%);
+  --font-display-transform: none;
+  --font-display-style: normal;
+  --font-display-weight: 700;
+  --hazard-bar: none;
   --badge-bg: #1F2937;
   --badge-text: #F9FAFB;
+  --badge-rotation: 0deg;
+  --card-header-bg: transparent;
+  --step-1-color: #1F2937;
+  --step-2-color: #374151;
+  --step-3-color: #1F2937;
+  --styles-tab-bg: #F9FAFB;
+  --styles-tab-color: #0F172A;
 }
 
 /* ============================================================
-   2. NEOBRUTALISMO
-   Bordes negros gruesos, sombras duras sólidas, esquinas rectas
-   ============================================================ */
-[data-theme="brutalism"][data-mode="light"] {
-  --bg-primary: #FFFDF5;
-  --bg-surface: #FFFFFF;
-  --bg-surface-elevated: #FFE600;
-  --bg-surface-hover: #FFFBE6;
-  --text-primary: #000000;
-  --text-secondary: #222222;
-  --text-muted: #555555;
-  --primary-color: #000000;
-  --primary-hover: #222222;
-  --primary-contrast: #FFFFFF;
-  --accent-color: #FFE600;
-  --accent-hover: #FFD000;
-  --border-color: #000000;
-  --border-subtle: #000000;
-  --border-width: 2.5px;
-  --border-radius: 0px;
-  --border-radius-sm: 0px;
-  --border-radius-lg: 0px;
-  --shadow-sm: 2px 2px 0px #000000;
-  --shadow-main: 5px 5px 0px #000000;
-  --shadow-elevated: 8px 8px 0px #000000;
-  --font-family: 'Space Grotesk', system-ui, monospace;
-  --font-display: 'Space Grotesk', monospace;
-  --hero-gradient: #FFE600;
-  --badge-bg: #000000;
-  --badge-text: #FFE600;
-}
-
-[data-theme="brutalism"][data-mode="dark"] {
-  --bg-primary: #121214;
-  --bg-surface: #1E1E24;
-  --bg-surface-elevated: #CCFF00;
-  --bg-surface-hover: #2A2A32;
-  --text-primary: #FFFFFF;
-  --text-secondary: #D4D4D8;
-  --text-muted: #A1A1AA;
-  --primary-color: #CCFF00;
-  --primary-hover: #B8E600;
-  --primary-contrast: #000000;
-  --accent-color: #FF0055;
-  --accent-hover: #E6004C;
-  --border-color: #FFFFFF;
-  --border-subtle: #D4D4D8;
-  --border-width: 2.5px;
-  --border-radius: 0px;
-  --border-radius-sm: 0px;
-  --border-radius-lg: 0px;
-  --shadow-sm: 2px 2px 0px #FFFFFF;
-  --shadow-main: 5px 5px 0px #FFFFFF;
-  --shadow-elevated: 8px 8px 0px #FFFFFF;
-  --font-family: 'Space Grotesk', system-ui, monospace;
-  --font-display: 'Space Grotesk', monospace;
-  --hero-gradient: #1E1E24;
-  --badge-bg: #CCFF00;
-  --badge-text: #000000;
-}
-
-/* ============================================================
-   3. POP ART
-   Colores primarios explosivos, viñetas, arte de cómic
-   ============================================================ */
-[data-theme="popart"][data-mode="light"] {
-  --bg-primary: #FFF9E6;
-  --bg-surface: #FFFFFF;
-  --bg-surface-elevated: #FF3366;
-  --bg-surface-hover: #FFE6EE;
-  --text-primary: #111111;
-  --text-secondary: #333333;
-  --text-muted: #666666;
-  --primary-color: #FF3366;
-  --primary-hover: #E02456;
-  --primary-contrast: #FFFFFF;
-  --accent-color: #FFCC00;
-  --accent-hover: #E6B800;
-  --border-color: #111111;
-  --border-subtle: #111111;
-  --border-width: 2px;
-  --border-radius: 8px;
-  --border-radius-sm: 4px;
-  --border-radius-lg: 12px;
-  --shadow-sm: 3px 3px 0px #00D2FF;
-  --shadow-main: 5px 5px 0px #00D2FF;
-  --shadow-elevated: 7px 7px 0px #FFCC00;
-  --font-family: 'Syne', system-ui, sans-serif;
-  --font-display: 'Syne', sans-serif;
-  --hero-gradient: linear-gradient(135deg, #FF3366 0%, #FFCC00 100%);
-  --badge-bg: #00D2FF;
-  --badge-text: #111111;
-}
-
-[data-theme="popart"][data-mode="dark"] {
-  --bg-primary: #150D2A;
-  --bg-surface: #21133F;
-  --bg-surface-elevated: #FF0055;
-  --bg-surface-hover: #2E1B57;
-  --text-primary: #FFFFFF;
-  --text-secondary: #E2D9F3;
-  --text-muted: #9F8EC4;
-  --primary-color: #FF007F;
-  --primary-hover: #E60072;
-  --primary-contrast: #FFFFFF;
-  --accent-color: #00F0FF;
-  --accent-hover: #00D5E6;
-  --border-color: #FFCC00;
-  --border-subtle: #FF007F;
-  --border-width: 2px;
-  --border-radius: 8px;
-  --border-radius-sm: 4px;
-  --border-radius-lg: 12px;
-  --shadow-sm: 3px 3px 0px #FFCC00;
-  --shadow-main: 5px 5px 0px #00F0FF;
-  --shadow-elevated: 7px 7px 0px #FF007F;
-  --font-family: 'Syne', system-ui, sans-serif;
-  --font-display: 'Syne', sans-serif;
-  --hero-gradient: linear-gradient(135deg, #FF007F 0%, #00F0FF 100%);
-  --badge-bg: #FFCC00;
-  --badge-text: #150D2A;
-}
-
-/* ============================================================
-   4. MEMPHIS DESIGN
-   Colores pastel lúdicos de los 80, geometría orgánica
-   ============================================================ */
-[data-theme="memphis"][data-mode="light"] {
-  --bg-primary: #F0FDF4;
-  --bg-surface: #FFFFFF;
-  --bg-surface-elevated: #6C5CE7;
-  --bg-surface-hover: #FAF5FF;
-  --text-primary: #2D3748;
-  --text-secondary: #4A5568;
-  --text-muted: #718096;
-  --primary-color: #6C5CE7;
-  --primary-hover: #5B4BC4;
-  --primary-contrast: #FFFFFF;
-  --accent-color: #FD79A8;
-  --accent-hover: #E84393;
-  --border-color: #2D3748;
-  --border-subtle: #A29BFE;
-  --border-width: 2px;
-  --border-radius: 16px;
-  --border-radius-sm: 10px;
-  --border-radius-lg: 24px;
-  --shadow-sm: 3px 3px 0px #00CEC9;
-  --shadow-main: 5px 5px 0px #FD79A8;
-  --shadow-elevated: 8px 8px 0px #6C5CE7;
-  --font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
-  --font-display: 'Plus Jakarta Sans', sans-serif;
-  --hero-gradient: linear-gradient(135deg, #6C5CE7 0%, #FD79A8 100%);
-  --badge-bg: #00CEC9;
-  --badge-text: #2D3748;
-}
-
-[data-theme="memphis"][data-mode="dark"] {
-  --bg-primary: #130E24;
-  --bg-surface: #1E1638;
-  --bg-surface-elevated: #A29BFE;
-  --bg-surface-hover: #2B1F50;
-  --text-primary: #F8F9FA;
-  --text-secondary: #D1D5DB;
-  --text-muted: #9CA3AF;
-  --primary-color: #A29BFE;
-  --primary-hover: #8C82FC;
-  --primary-contrast: #130E24;
-  --accent-color: #FF7675;
-  --accent-hover: #D63031;
-  --border-color: #A29BFE;
-  --border-subtle: #6C5CE7;
-  --border-width: 2px;
-  --border-radius: 16px;
-  --border-radius-sm: 10px;
-  --border-radius-lg: 24px;
-  --shadow-sm: 3px 3px 0px #55EFC4;
-  --shadow-main: 5px 5px 0px #FD79A8;
-  --shadow-elevated: 8px 8px 0px #A29BFE;
-  --font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
-  --font-display: 'Plus Jakarta Sans', sans-serif;
-  --hero-gradient: linear-gradient(135deg, #A29BFE 0%, #FD79A8 100%);
-  --badge-bg: #55EFC4;
-  --badge-text: #130E24;
-}
-
-/* ============================================================
-   5. CYBER NEÓN
-   Resplandor luminoso (Glow), cristal ahumado (Glassmorphism)
+   5. CYBER NEÓN (ÚNICO CON DEGRADADOS Y RESPLANDOR GLOW)
+   Fondo tecnológico con efectos de luz láser
    ============================================================ */
 [data-theme="neon"][data-mode="light"] {
   --bg-primary: #F0F4F8;
-  --bg-surface: rgba(255, 255, 255, 0.85);
+  --bg-pattern: linear-gradient(to right, rgba(0, 102, 255, 0.08) 1px, transparent 1px), linear-gradient(to bottom, rgba(0, 102, 255, 0.08) 1px, transparent 1px);
+  --bg-pattern-size: 30px 30px;
+  --bg-surface: #FFFFFF;
   --bg-surface-elevated: #0066FF;
-  --bg-surface-hover: rgba(255, 255, 255, 0.95);
+  --bg-surface-hover: #F8FAFC;
   --text-primary: #0A1128;
   --text-secondary: #2C3E50;
   --text-muted: #7F8C8D;
@@ -275,27 +386,40 @@
   --primary-contrast: #FFFFFF;
   --accent-color: #00F0FF;
   --accent-hover: #00D5E6;
-  --border-color: rgba(0, 102, 255, 0.35);
+  --accent-yellow: #FFD600;
+  --border-color: rgba(0, 102, 255, 0.4);
   --border-subtle: rgba(0, 102, 255, 0.15);
   --border-width: 1.5px;
-  --border-radius: 14px;
+  --border-radius: 12px;
   --border-radius-sm: 8px;
-  --border-radius-lg: 20px;
+  --border-radius-lg: 18px;
   --shadow-sm: 0 0 10px rgba(0, 102, 255, 0.15);
-  --shadow-main: 0 4px 20px rgba(0, 102, 255, 0.2), 0 0 1px rgba(0, 102, 255, 0.5);
-  --shadow-elevated: 0 8px 30px rgba(0, 102, 255, 0.3);
+  --shadow-main: 0 0 20px rgba(0, 102, 255, 0.25);
+  --shadow-elevated: 0 0 35px rgba(0, 102, 255, 0.35);
   --font-family: 'Outfit', system-ui, sans-serif;
   --font-display: 'Outfit', sans-serif;
-  --hero-gradient: linear-gradient(135deg, #0066FF 0%, #00F0FF 100%);
+  --font-display-transform: uppercase;
+  --font-display-style: normal;
+  --font-display-weight: 700;
+  --hazard-bar: linear-gradient(90deg, #0066FF, #00F0FF, #FF007F, #0066FF);
   --badge-bg: rgba(0, 102, 255, 0.12);
   --badge-text: #0066FF;
+  --badge-rotation: 0deg;
+  --card-header-bg: transparent;
+  --step-1-color: rgba(0, 102, 255, 0.1);
+  --step-2-color: rgba(0, 240, 255, 0.1);
+  --step-3-color: rgba(255, 0, 127, 0.1);
+  --styles-tab-bg: #0066FF;
+  --styles-tab-color: #FFFFFF;
 }
 
 [data-theme="neon"][data-mode="dark"] {
   --bg-primary: #06070B;
-  --bg-surface: rgba(13, 17, 26, 0.75);
-  --bg-surface-elevated: #111827;
-  --bg-surface-hover: rgba(22, 28, 42, 0.85);
+  --bg-pattern: linear-gradient(to right, rgba(0, 240, 255, 0.08) 1px, transparent 1px), linear-gradient(to bottom, rgba(0, 240, 255, 0.08) 1px, transparent 1px);
+  --bg-pattern-size: 30px 30px;
+  --bg-surface: #0E121E;
+  --bg-surface-elevated: #151C2E;
+  --bg-surface-hover: #1A233A;
   --text-primary: #FFFFFF;
   --text-secondary: #94A3B8;
   --text-muted: #64748B;
@@ -304,18 +428,30 @@
   --primary-contrast: #06070B;
   --accent-color: #FF007F;
   --accent-hover: #FF3399;
-  --border-color: rgba(0, 240, 255, 0.4);
-  --border-subtle: rgba(0, 240, 255, 0.15);
+  --accent-yellow: #FFE600;
+  --border-color: rgba(0, 240, 255, 0.45);
+  --border-subtle: rgba(0, 240, 255, 0.2);
   --border-width: 1.5px;
-  --border-radius: 14px;
+  --border-radius: 12px;
   --border-radius-sm: 8px;
-  --border-radius-lg: 20px;
+  --border-radius-lg: 18px;
   --shadow-sm: 0 0 10px rgba(0, 240, 255, 0.25);
-  --shadow-main: 0 0 25px rgba(0, 240, 255, 0.3), inset 0 0 15px rgba(0, 240, 255, 0.05);
-  --shadow-elevated: 0 0 40px rgba(255, 0, 127, 0.35);
+  --shadow-main: 0 0 25px rgba(0, 240, 255, 0.35);
+  --shadow-elevated: 0 0 45px rgba(255, 0, 127, 0.4);
   --font-family: 'Outfit', system-ui, sans-serif;
   --font-display: 'Outfit', sans-serif;
-  --hero-gradient: linear-gradient(135deg, #00F0FF 0%, #FF007F 100%);
+  --font-display-transform: uppercase;
+  --font-display-style: normal;
+  --font-display-weight: 700;
+  --hazard-bar: linear-gradient(90deg, #00F0FF, #FF007F, #FFE600, #00F0FF);
   --badge-bg: rgba(0, 240, 255, 0.15);
   --badge-text: #00F0FF;
+  --badge-rotation: 0deg;
+  --card-header-bg: transparent;
+  --step-1-color: rgba(0, 240, 255, 0.15);
+  --step-2-color: rgba(255, 230, 0, 0.15);
+  --step-3-color: rgba(255, 0, 127, 0.15);
+  --styles-tab-bg: #00F0FF;
+  --styles-tab-color: #06070B;
 }
+

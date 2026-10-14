@@ -49,6 +49,18 @@ export const LoginForm = () => {
         />
       </div>
 
+      <div className="auth-form__options">
+        <label className="auth-form__checkbox-label">
+          <input
+            type="checkbox"
+            name="rememberMe"
+            defaultChecked
+            className="auth-form__checkbox"
+          />
+          <span>Recordar mis datos en este equipo para futuras sesiones</span>
+        </label>
+      </div>
+
       <div className="auth-form__actions">
         <Button
           type="submit"
@@ -60,6 +72,10 @@ export const LoginForm = () => {
         >
           {isSubmitting ? 'Verificando...' : 'Acceder al Sistema'}
         </Button>
+      </div>
+
+      <div className="auth-form__security-note">
+        <span>🛡️ Tus credenciales y materiales de clase viajan directamente con cifrado SSL a Supabase.</span>
       </div>
 
       <div className="auth-form__footer">
