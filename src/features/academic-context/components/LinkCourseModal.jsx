@@ -2,16 +2,17 @@ import React, { useState, useEffect } from 'react';
 import { useAcademic } from '../context/AcademicContext';
 import { academicService } from '../services/academicService';
 import { Button } from '../../../core/components/Button';
-import { X, Plus, BookOpen, Sparkles, FolderPlus } from 'lucide-react';
+import { X, Plus, BookOpen, MapPin, Briefcase, Clock, FolderPlus } from 'lucide-react';
+import { getCurrentPeriod } from '../utils/academicUtils';
 import toast from 'react-hot-toast';
 import './courseCard.css';
 
-import { getCurrentPeriod } from '../utils/academicUtils';
-
 /**
- * Modal dual para:
- * 1. Vincular una asignatura existente del catálogo institucional
- * 2. O crear una nueva asignatura in-place y vincularla inmediatamente
+ * Modal para vincular o crear asignaturas con contexto institucional CESDE:
+ * - Sedes: Medellín | Bello
+ * - Modalidades: Regular | Grupos Empresariales
+ * - Jornadas: Mañana (AM) | Tarde (PM) | Noche
+ * - Grupos: 01, 02, etc.
  */
 export const LinkCourseModal = ({ isOpen, onClose }) => {
   const { vincularAsignatura, crearYVincularAsignatura, selectedPeriod } = useAcademic();
@@ -28,28 +29,37 @@ export const LinkCourseModal = ({ isOpen, onClose }) => {
   // Periodo activo por defecto
   const defaultPeriod = selectedPeriod === 'ALL' ? getCurrentPeriod() : (selectedPeriod || getCurrentPeriod());
 
+  // Parámetros Institucionales CESDE
+  const [sede, setSede] = useState('Medellín');
+  const [modalidad, setModalidad] = useState('Regular');
+  const [jornada, setJornada] = useState('Mañana');
+  const [periodo, setPeriodo] = useState(defaultPeriod);
+  const [grupo, setGrupo] = useState('01');
+
   // Formulario 1: Vincular Existente
   const [selectedPrograma, setSelectedPrograma] = useState('');
   const [selectedAsignaturaId, setSelectedAsignaturaId] = useState('');
-  const [periodo, setPeriodo] = useState(defaultPeriod);
-  const [grupo, setGrupo] = useState('01');
 
   // Formulario 2: Crear Nueva Asignatura
   const [newNombre, setNewNombre] = useState('');
   const [newCodigo, setNewCodigo] = useState('');
   const [newSemestre, setNewSemestre] = useState('1');
   const [newProgramaId, setNewProgramaId] = useState('');
-  const [newPeriodo, setNewPeriodo] = useState(defaultPeriod);
-  const [newGrupo, setNewGrupo] = useState('01');
 
   // Sincronizar periodos al abrir
   useEffect(() => {
     if (isOpen) {
       const p = selectedPeriod === 'ALL' ? getCurrentPeriod() : (selectedPeriod || getCurrentPeriod());
       setPeriodo(p);
-      setNewPeriodo(p);
     }
   }, [isOpen, selectedPeriod]);
+
+  // Si la modalidad es Empresarial, ajustar jornada si estaba en 'Noche'
+  useEffect(() => {
+    if (modalidad === 'Empresarial' && jornada === 'Noche') {
+      setJornada('Tarde');
+    }
+  }, [modalidad, jornada]);
 
   // Cargar catálogo al abrir
   useEffect(() => {
@@ -87,12 +97,11 @@ export const LinkCourseModal = ({ isOpen, onClose }) => {
     };
   }, [isOpen]);
 
-  // Filtrar asignaturas por programa en modo catálogo
+  // Filtrar asignaturas por programa
   const filteredAsignaturas = selectedPrograma
     ? asignaturas.filter((a) => a.programa_id?.toString() === selectedPrograma.toString())
     : asignaturas;
 
-  // Sincronizar select de asignatura cuando cambia el programa
   useEffect(() => {
     if (filteredAsignaturas.length > 0) {
       setSelectedAsignaturaId(filteredAsignaturas[0].id.toString());
@@ -112,11 +121,11 @@ export const LinkCourseModal = ({ isOpen, onClose }) => {
 
   if (!isOpen) return null;
 
-  // Envío Formulario 1: Vincular Existente
+  // Enviar Formulario 1: Vincular Existente
   const handleVincularExistente = async (e) => {
     e.preventDefault();
     if (!selectedAsignaturaId) {
-      toast.error('Selecciona una asignatura de la lista');
+      toast.error('Selecciona una asignatura');
       return;
     }
     if (!periodo.trim()) {
@@ -129,17 +138,20 @@ export const LinkCourseModal = ({ isOpen, onClose }) => {
       await vincularAsignatura({
         asignatura_id: Number(selectedAsignaturaId),
         periodo_academico: periodo.trim(),
-        grupo: grupo.trim() || '01'
+        grupo: grupo.trim() || '01',
+        sede,
+        modalidad,
+        jornada
       });
       onClose();
     } catch {
-      // Manejado por toast en AcademicContext
+      // Notificado en el context
     } finally {
       setSubmitting(false);
     }
   };
 
-  // Envío Formulario 2: Crear Nueva Asignatura y Vincular
+  // Enviar Formulario 2: Crear Nueva Asignatura y Vincular
   const handleCrearYVincular = async (e) => {
     e.preventDefault();
     if (!newNombre.trim()) {
@@ -162,19 +174,115 @@ export const LinkCourseModal = ({ isOpen, onClose }) => {
         codigo: newCodigo.trim(),
         nombre: newNombre.trim(),
         semestre: newSemestre ? Number(newSemestre) : null,
-        periodo_academico: newPeriodo.trim() || '2026-1',
-        grupo: newGrupo.trim() || '01'
+        periodo_academico: periodo.trim() || '2026-2',
+        grupo: grupo.trim() || '01',
+        sede,
+        modalidad,
+        jornada
       });
-      // Limpiar y cerrar
       setNewNombre('');
       setNewCodigo('');
       onClose();
     } catch {
-      // Manejado por toast
+      // Notificado en el context
     } finally {
       setSubmitting(false);
     }
   };
+
+  // Bloque común de configuración institucional CESDE (Sede, Modalidad, Jornada, Grupo, Periodo)
+  const renderCesdeContextFields = () => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 12, padding: '12px', backgroundColor: 'var(--bg-surface-hover)', borderRadius: 'var(--border-radius-sm)', border: 'var(--border-width) solid var(--border-subtle)' }}>
+      <div style={{ fontSize: '0.74rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.06em', color: 'var(--text-muted)' }}>
+        Configuración Institucional CESDE
+      </div>
+
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(130px, 1fr))', gap: 10 }}>
+        {/* Sede */}
+        <div className="modal-form-group">
+          <label htmlFor="modal-sede" className="modal-label" style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+            <MapPin size={13} style={{ color: 'var(--primary-color)' }} /> Sede
+          </label>
+          <select
+            id="modal-sede"
+            className="modal-select"
+            value={sede}
+            onChange={(e) => setSede(e.target.value)}
+          >
+            <option value="Medellín">Medellín</option>
+            <option value="Bello">Bello</option>
+          </select>
+        </div>
+
+        {/* Modalidad */}
+        <div className="modal-form-group">
+          <label htmlFor="modal-modalidad" className="modal-label" style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+            <Briefcase size={13} style={{ color: 'var(--primary-color)' }} /> Modalidad
+          </label>
+          <select
+            id="modal-modalidad"
+            className="modal-select"
+            value={modalidad}
+            onChange={(e) => setModalidad(e.target.value)}
+          >
+            <option value="Regular">Regular</option>
+            <option value="Empresarial">Empresarial</option>
+          </select>
+        </div>
+
+        {/* Jornada */}
+        <div className="modal-form-group">
+          <label htmlFor="modal-jornada" className="modal-label" style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+            <Clock size={13} style={{ color: 'var(--primary-color)' }} /> Jornada
+          </label>
+          <select
+            id="modal-jornada"
+            className="modal-select"
+            value={jornada}
+            onChange={(e) => setJornada(e.target.value)}
+          >
+            <option value="Mañana">Mañana (AM)</option>
+            <option value="Tarde">Tarde (PM)</option>
+            {modalidad === 'Regular' && <option value="Noche">Noche</option>}
+          </select>
+        </div>
+      </div>
+
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }}>
+        {/* Periodo */}
+        <div className="modal-form-group">
+          <label htmlFor="modal-periodo" className="modal-label">
+            Periodo Académico
+          </label>
+          <input
+            id="modal-periodo"
+            type="text"
+            className="modal-input"
+            value={periodo}
+            onChange={(e) => setPeriodo(e.target.value)}
+            placeholder="Ej. 2026-2"
+            required
+          />
+        </div>
+
+        {/* Grupo */}
+        <div className="modal-form-group">
+          <label htmlFor="modal-grupo" className="modal-label">
+            Grupo / Salón
+          </label>
+          <input
+            id="modal-grupo"
+            type="text"
+            className="modal-input"
+            value={grupo}
+            onChange={(e) => setGrupo(e.target.value)}
+            placeholder="Ej. 01, 02 o MED-AM-01"
+            required
+          />
+        </div>
+      </div>
+    </div>
+  );
 
   return (
     <div className="modal-overlay" onClick={onClose} role="dialog" aria-modal="true">
@@ -184,7 +292,7 @@ export const LinkCourseModal = ({ isOpen, onClose }) => {
           <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
             <BookOpen size={20} style={{ color: 'var(--primary-color)' }} />
             <h3 className="modal-header__title">
-              {activeTab === 'catalogo' ? 'Vincular Asignatura' : 'Crear Nueva Asignatura'}
+              {activeTab === 'catalogo' ? 'Vincular Curso CESDE' : 'Crear Asignatura CESDE'}
             </h3>
           </div>
           <button
@@ -268,7 +376,7 @@ export const LinkCourseModal = ({ isOpen, onClose }) => {
                     </select>
                   </div>
 
-                  {/* Acceso rápido para cambiar a modo crear si no está la materia */}
+                  {/* Acceso rápido para cambiar a modo crear */}
                   <div style={{ textAlign: 'right', marginTop: -4 }}>
                     <button
                       type="button"
@@ -284,41 +392,12 @@ export const LinkCourseModal = ({ isOpen, onClose }) => {
                       }}
                       onClick={() => setActiveTab('crear')}
                     >
-                      ¿Tu asignatura no aparece? Créala aquí
+                      ¿Tu asignatura no aparece en la lista? Créala aquí
                     </button>
                   </div>
 
-                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
-                    <div className="modal-form-group">
-                      <label htmlFor="modal-periodo" className="modal-label">
-                        Periodo Académico
-                      </label>
-                      <input
-                        id="modal-periodo"
-                        type="text"
-                        className="modal-input"
-                        value={periodo}
-                        onChange={(e) => setPeriodo(e.target.value)}
-                        placeholder="Ej. 2026-1"
-                        required
-                      />
-                    </div>
-
-                    <div className="modal-form-group">
-                      <label htmlFor="modal-grupo" className="modal-label">
-                        Grupo / Sección
-                      </label>
-                      <input
-                        id="modal-grupo"
-                        type="text"
-                        className="modal-input"
-                        value={grupo}
-                        onChange={(e) => setGrupo(e.target.value)}
-                        placeholder="Ej. 01"
-                        required
-                      />
-                    </div>
-                  </div>
+                  {/* Configuración CESDE: Sede, Modalidad, Jornada, Periodo, Grupo */}
+                  {renderCesdeContextFields()}
                 </>
               )}
             </div>
@@ -335,13 +414,13 @@ export const LinkCourseModal = ({ isOpen, onClose }) => {
                 icon={<Plus size={16} />}
                 disabled={loadingCatalog || !selectedAsignaturaId}
               >
-                Vincular al Perfil
+                Vincular Curso
               </Button>
             </div>
           </form>
         )}
 
-        {/* CONTENIDO MODO 2: Crear Nueva Asignatura in-place */}
+        {/* CONTENIDO MODO 2: Crear Nueva Asignatura */}
         {activeTab === 'crear' && (
           <form onSubmit={handleCrearYVincular}>
             <div className="modal-body">
@@ -374,7 +453,7 @@ export const LinkCourseModal = ({ isOpen, onClose }) => {
                   className="modal-input"
                   value={newNombre}
                   onChange={(e) => setNewNombre(e.target.value)}
-                  placeholder="Ej. Inteligencia Artificial Aplicada"
+                  placeholder="Ej. Introducción a la Programación"
                   required
                 />
               </div>
@@ -390,7 +469,7 @@ export const LinkCourseModal = ({ isOpen, onClose }) => {
                     className="modal-input"
                     value={newCodigo}
                     onChange={(e) => setNewCodigo(e.target.value)}
-                    placeholder="Ej. IA-402"
+                    placeholder="Ej. PR-101"
                     required
                   />
                 </div>
@@ -407,42 +486,13 @@ export const LinkCourseModal = ({ isOpen, onClose }) => {
                     className="modal-input"
                     value={newSemestre}
                     onChange={(e) => setNewSemestre(e.target.value)}
-                    placeholder="Ej. 6"
+                    placeholder="Ej. 1"
                   />
                 </div>
               </div>
 
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
-                <div className="modal-form-group">
-                  <label htmlFor="modal-new-periodo" className="modal-label">
-                    Periodo Inicial
-                  </label>
-                  <input
-                    id="modal-new-periodo"
-                    type="text"
-                    className="modal-input"
-                    value={newPeriodo}
-                    onChange={(e) => setNewPeriodo(e.target.value)}
-                    placeholder="Ej. 2026-1"
-                    required
-                  />
-                </div>
-
-                <div className="modal-form-group">
-                  <label htmlFor="modal-new-grupo" className="modal-label">
-                    Grupo Asignado
-                  </label>
-                  <input
-                    id="modal-new-grupo"
-                    type="text"
-                    className="modal-input"
-                    value={newGrupo}
-                    onChange={(e) => setNewGrupo(e.target.value)}
-                    placeholder="Ej. 01"
-                    required
-                  />
-                </div>
-              </div>
+              {/* Configuración CESDE: Sede, Modalidad, Jornada, Periodo, Grupo */}
+              {renderCesdeContextFields()}
             </div>
 
             <div className="modal-footer">

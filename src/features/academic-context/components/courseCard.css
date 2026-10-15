@@ -154,6 +154,20 @@
   box-shadow: var(--shadow-sm);
 }
 
+.course-card__badge-sede {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  padding: 3px 7px;
+  background-color: var(--bg-surface-hover);
+  color: var(--text-secondary);
+  border: var(--border-width) solid var(--border-subtle);
+  border-radius: var(--border-radius-sm);
+}
+
 /* Cuadrícula de Asignaturas */
 .courses-grid {
   display: grid;
