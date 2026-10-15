@@ -160,6 +160,18 @@ Para ofrecer una experiencia visual única y personalizable, el frontend debe so
 * **Componentes Agnósticos:** Los componentes de `src/core/components/` (`Button`, `Card`, `Input`, `Badge`) deben ser agnósticos y consumir exclusivamente variables CSS globales (ej. `border: var(--border-width) solid var(--border-color); box-shadow: var(--shadow-main);`).
 * **Conmutación Universal:** El estado del tema (`theme`: `minimalism | brutalism | popart | memphis | neon`) y el modo (`mode`: `light | dark`) se gestiona centralizadamente mediante un hook global `useTheme()` en `src/core/theme/ThemeContext.jsx` y se persiste en `localStorage`.
 
+---
+
+## 10. Convención de Commits y Control de Versiones (Git)
+
+1. **Commits y Push Obligatorios ante Cambios Significativos:**
+   * **Siempre y de forma obligatoria**, ante cada avance o cambio significativo (nueva funcionalidad, ajuste de componentes visuales, refactorización, corrección de bug o actualización de estilos/reglas), se debe **crear el commit correspondiente y ejecutar inmediatamente `git push origin master`**.
+   * **Prohibido** acumular cambios de múltiples módulos o dejar avances significativos únicamente guardados en local sin respaldo en el repositorio remoto.
+
+2. **Convención Obligatoria (Conventional Commits):**
+   * Formato: `<tipo>(<alcance opcional>): <descripción concisa y en minúsculas>`
+   * Tipos: `feat:`, `fix:`, `style:`, `refactor:`, `docs:`, `chore:`, `test:`.
+
 
 
 
