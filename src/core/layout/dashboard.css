@@ -128,17 +128,15 @@
 
 /* Contenido Principal */
 .dashboard-main {
-  max-width: 760px;
-  margin: 36px auto;
-  text-align: center;
-  padding: 0 12px;
+  max-width: 1080px;
+  margin: 24px auto;
+  text-align: left;
+  padding: 0 8px;
   box-sizing: border-box;
 }
 
-.dashboard-welcome-avatar {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 16px;
+.dashboard-welcome-banner {
+  margin-bottom: 20px;
 }
 
 .dashboard-title {
