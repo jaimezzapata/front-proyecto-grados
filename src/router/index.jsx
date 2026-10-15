@@ -37,7 +37,9 @@ const DashboardView = () => {
       backgroundColor: 'var(--bg-primary)',
       color: 'var(--text-primary)',
       fontFamily: 'var(--font-family)',
-      padding: '24px 32px'
+      padding: 'clamp(16px, 4vw, 32px)',
+      boxSizing: 'border-box',
+      overflowX: 'hidden'
     }}>
       <header style={{
         display: 'flex',

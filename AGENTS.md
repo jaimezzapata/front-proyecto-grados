@@ -98,6 +98,12 @@ Cada subcarpeta dentro de `src/features/[nombre-feature]/` debe ser autocontenid
        * `components/ApprovalActionBar.jsx` (Barra inferior de acciones).
    * **Separación de Lógica y Presentación:** Los componentes visuales deben enfocarse en renderizar la interfaz. Toda la lógica de negocio, cálculos de puntaje, validaciones y llamadas a la API deben extraerse a **custom hooks** en la carpeta `hooks/`.
 
+3. **Diseño Responsivo Obligatorio (Desktop y Celular / Multi-Dispositivo):**
+   * **Obligatoriedad PC y Celular:** Todo componente, formulario, tarjeta, vista o navegación debe crearse obligatoriamente adaptado tanto a pantallas de escritorio (PC) como a pantallas móviles (smartphones y tablets).
+   * **Prohibido asumir resoluciones exclusivas de PC:** Ningún componente debe tener anchos estáticos que desborden en pantallas pequeñas ni depender exclusivamente de eventos de cursor (`:hover`). Todo control debe ser completamente táctil y accesible.
+   * **Cero Desbordamiento Horizontal:** Garantizar `box-sizing: border-box`, `max-width: 100%`, layouts fluidos (Flexbox/Grid) y adaptación con media queries (`@media (max-width: 768px)` y `@media (max-width: 480px)`).
+   * **Degradación Elegante:** En pantallas estrechas, los encabezados y barras de acciones deben contraerse armónicamente (ej. mostrar chips condensados o avatares de iniciales sin romper el layout).
+
 ---
 
 ## 7. Conmutación Modular en Frontend (Feature Flags / Vistas de Suscripción)

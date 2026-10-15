@@ -74,3 +74,9 @@
   text-transform: uppercase;
   letter-spacing: 0.04em;
 }
+
+@media (max-width: 640px) {
+  .core-user-chip__info {
+    display: none;
+  }
+}
