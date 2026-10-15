@@ -19,14 +19,14 @@
    ============================================================ */
 [data-theme="popart"][data-mode="light"] {
   --bg-primary: #FFDE00;
-  --bg-pattern: radial-gradient(#111111 1.8px, transparent 1.8px);
-  --bg-pattern-size: 16px 16px;
+  --bg-pattern: radial-gradient(rgba(0, 0, 0, 0.08) 1.5px, transparent 1.5px);
+  --bg-pattern-size: 20px 20px;
   --bg-surface: #FFFFFF;
   --bg-surface-elevated: #FFF066;
   --bg-surface-hover: #FFF9C4;
   --text-primary: #000000;
   --text-secondary: #222222;
-  --text-muted: #555555;
+  --text-muted: #444444;
   --primary-color: #FF007A; /* Magenta Cómic */
   --primary-hover: #E0006C;
   --primary-contrast: #FFFFFF;
@@ -61,8 +61,8 @@
 
 [data-theme="popart"][data-mode="dark"] {
   --bg-primary: #1A0B2E;
-  --bg-pattern: radial-gradient(#FF007A 1.8px, transparent 1.8px);
-  --bg-pattern-size: 16px 16px;
+  --bg-pattern: radial-gradient(rgba(255, 0, 122, 0.16) 1.5px, transparent 1.5px);
+  --bg-pattern-size: 20px 20px;
   --bg-surface: #271444;
   --bg-surface-elevated: #FFDE00;
   --bg-surface-hover: #351C5C;
