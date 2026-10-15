@@ -4,13 +4,19 @@ import { LoginPage } from '../features/auth/pages/LoginPage';
 import { RegisterPage } from '../features/auth/pages/RegisterPage';
 import { useAuth } from '../core/context/AuthContext';
 import { Button } from '../core/components/Button';
+import { PageLoader } from '../core/components/Loader';
 import { LogOut, GraduationCap, Sparkles } from 'lucide-react';
 
 /**
  * Guardia de ruta protegida para docentes autenticados
  */
 const ProtectedRoute = ({ children }) => {
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, loading } = useAuth();
+
+  if (loading) {
+    return <PageLoader message="Verificando sesión..." />;
+  }
+
   if (!isAuthenticated) {
     return <Navigate to="/login" replace />;
   }

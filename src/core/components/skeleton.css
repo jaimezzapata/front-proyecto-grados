@@ -1,0 +1,128 @@
+/* ==========================================================================
+   SKELETON PLACEHOLDER STYLES (Adaptable a todos los temas de Z-SUITE)
+   ========================================================================== */
+
+.core-skeleton {
+  display: block;
+  background-color: var(--border-subtle);
+  background-image: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0,
+    rgba(255, 255, 255, 0.18) 40%,
+    rgba(255, 255, 255, 0.3) 50%,
+    rgba(255, 255, 255, 0.18) 60%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  background-size: 200% 100%;
+  background-repeat: no-repeat;
+  animation: coreSkeletonShimmer 1.5s infinite ease-in-out;
+  border-radius: var(--border-radius-sm);
+  box-sizing: border-box;
+}
+
+/* Modo oscuro / Cyberpunk: shimmer con luminosidad sutil */
+[data-mode="dark"] .core-skeleton,
+[data-theme="neon"] .core-skeleton {
+  background-color: rgba(255, 255, 255, 0.08);
+  background-image: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0,
+    rgba(255, 255, 255, 0.06) 40%,
+    rgba(255, 255, 255, 0.12) 50%,
+    rgba(255, 255, 255, 0.06) 60%,
+    rgba(255, 255, 255, 0) 100%
+  );
+}
+
+/* Variantes */
+.core-skeleton--text {
+  height: 14px;
+  width: 100%;
+  margin: 6px 0;
+  border-radius: 4px;
+}
+
+.core-skeleton--title {
+  height: 24px;
+  width: 65%;
+  margin: 8px 0;
+  border-radius: 6px;
+}
+
+.core-skeleton--circular {
+  width: 40px;
+  height: 40px;
+  border-radius: 50% !important;
+  flex-shrink: 0;
+}
+
+.core-skeleton--rectangular {
+  width: 100%;
+  height: 120px;
+  border-radius: var(--border-radius-sm);
+}
+
+/* Grupo de múltiples líneas */
+.core-skeleton-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+}
+
+/* Card Skeleton prefabricada (DRY) */
+.core-skeleton-card {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 24px;
+  background-color: var(--bg-surface);
+  border: var(--border-width) solid var(--border-color);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-sm);
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.core-skeleton-card__header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.core-skeleton-card__header-text {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+}
+
+.core-skeleton-card__body {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* Formulario Skeleton */
+.core-skeleton-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  width: 100%;
+}
+
+.core-skeleton-form__field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/* Animación Shimmer */
+@keyframes coreSkeletonShimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
