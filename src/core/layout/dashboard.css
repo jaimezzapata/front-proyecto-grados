@@ -1,0 +1,184 @@
+/* ==========================================================================
+   DASHBOARD LAYOUT STYLES (100% Responsivo & Adaptable a todos los temas)
+   ========================================================================== */
+
+.dashboard-layout {
+  min-height: 100vh;
+  background-color: var(--bg-primary);
+  background-image: var(--bg-pattern);
+  background-size: var(--bg-pattern-size);
+  color: var(--text-primary);
+  font-family: var(--font-family);
+  padding: clamp(14px, 3vw, 28px);
+  box-sizing: border-box;
+  overflow-x: hidden;
+  transition: background-color var(--transition-speed) ease, color var(--transition-speed) ease;
+}
+
+/* Header Responsivo */
+.dashboard-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  border-bottom: var(--border-width) solid var(--border-color);
+  padding-bottom: 14px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Marca / Logo Z-SUITE */
+.dashboard-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.dashboard-brand__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background-color: var(--primary-color);
+  color: var(--primary-contrast);
+  border: var(--border-width) solid var(--border-color);
+  border-radius: var(--border-radius-sm);
+  box-shadow: var(--shadow-sm);
+  flex-shrink: 0;
+}
+
+.dashboard-brand__title {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.2rem;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+  line-height: 1;
+  font-style: normal !important;
+}
+
+/* En Pop Art la fuente Syne es naturalmente más ancha; se normaliza para que tenga el mismo tamaño visual */
+[data-theme="popart"] .dashboard-brand__title {
+  font-size: 1.05rem;
+  letter-spacing: -0.01em;
+  font-style: normal !important;
+}
+
+/* Acciones de usuario en cabecera */
+.dashboard-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.dashboard-logout-btn {
+  white-space: nowrap;
+}
+
+/* En móviles y pantallas pequeñas */
+@media (max-width: 600px) {
+  .dashboard-layout {
+    padding: 12px 14px;
+  }
+
+  .dashboard-header {
+    padding-bottom: 12px;
+    gap: 8px;
+  }
+
+  .dashboard-brand {
+    gap: 7px;
+  }
+
+  .dashboard-brand__icon {
+    width: 32px;
+    height: 32px;
+  }
+
+  .dashboard-brand__title {
+    font-size: 1.05rem;
+  }
+
+  [data-theme="popart"] .dashboard-brand__title {
+    font-size: 0.96rem;
+  }
+
+  .dashboard-actions {
+    gap: 8px;
+  }
+
+  .dashboard-logout-btn {
+    height: 34px !important;
+    min-height: 34px !important;
+    padding: 0 10px !important;
+    font-size: 0.8rem !important;
+    gap: 6px !important;
+  }
+}
+
+@media (max-width: 380px) {
+  /* En pantallas extremadamente angostas (< 380px), optimizar texto para cero recorte */
+  .dashboard-logout-btn .core-btn__text {
+    font-size: 0.78rem;
+  }
+}
+
+/* Contenido Principal */
+.dashboard-main {
+  max-width: 760px;
+  margin: 36px auto;
+  text-align: center;
+  padding: 0 12px;
+  box-sizing: border-box;
+}
+
+.dashboard-welcome-avatar {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
+.dashboard-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 4vw, 2.1rem);
+  font-weight: 800;
+  margin: 0 0 10px;
+  line-height: 1.2;
+  font-style: normal;
+}
+
+.dashboard-subtitle {
+  color: var(--text-secondary);
+  font-size: clamp(0.9rem, 2.5vw, 1.05rem);
+  line-height: 1.5;
+  margin: 0 0 28px;
+}
+
+.dashboard-card {
+  background-color: var(--bg-surface);
+  border: var(--border-width) solid var(--border-color);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-main);
+  padding: clamp(20px, 4vw, 32px);
+  text-align: left;
+  box-sizing: border-box;
+}
+
+.dashboard-card__title {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 800;
+  margin: 0 0 12px;
+  color: var(--text-primary);
+  font-style: normal;
+}
+
+.dashboard-card__desc {
+  font-size: 0.92rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+  margin: 0;
+}

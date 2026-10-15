@@ -8,6 +8,7 @@ import { PageLoader } from '../core/components/Loader';
 import { Avatar } from '../core/components/Avatar';
 import { getUserFullName } from '../core/utils/userUtils';
 import { LogOut, GraduationCap } from 'lucide-react';
+import '../core/layout/dashboard.css';
 
 /**
  * Guardia de ruta protegida para docentes autenticados
@@ -32,71 +33,47 @@ const DashboardView = () => {
   const { user, logout } = useAuth();
 
   return (
-    <div style={{
-      minHeight: '100vh',
-      backgroundColor: 'var(--bg-primary)',
-      color: 'var(--text-primary)',
-      fontFamily: 'var(--font-family)',
-      padding: 'clamp(16px, 4vw, 32px)',
-      boxSizing: 'border-box',
-      overflowX: 'hidden'
-    }}>
-      <header style={{
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        borderBottom: 'var(--border-width) solid var(--border-color)',
-        paddingBottom: '16px'
-      }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-          <div style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            width: '36px',
-            height: '36px',
-            backgroundColor: 'var(--primary-color)',
-            color: 'var(--primary-contrast)',
-            borderRadius: 'var(--border-radius-sm)'
-          }}>
+    <div className="dashboard-layout">
+      <header className="dashboard-header">
+        <div className="dashboard-brand">
+          <div className="dashboard-brand__icon">
             <GraduationCap size={20} />
           </div>
-          <span style={{ fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: '1.25rem' }}>
+          <span className="dashboard-brand__title">
             Z-SUITE
           </span>
         </div>
 
-        <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+        <div className="dashboard-actions">
           <Avatar user={user} size="sm" showDetails />
-          <Button variant="outline" size="sm" icon={<LogOut size={16} />} onClick={logout}>
+          <Button
+            variant="outline"
+            size="sm"
+            className="dashboard-logout-btn"
+            icon={<LogOut size={16} />}
+            onClick={logout}
+          >
             Cerrar Sesión
           </Button>
         </div>
       </header>
 
-      <main style={{ maxWidth: '800px', margin: '40px auto', textAlign: 'center' }}>
-        <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '16px' }}>
+      <main className="dashboard-main">
+        <div className="dashboard-welcome-avatar">
           <Avatar user={user} size="lg" />
         </div>
 
-        <h1 style={{ fontFamily: 'var(--font-display)', fontSize: '2rem', fontWeight: 800, margin: '0 0 10px' }}>
+        <h1 className="dashboard-title">
           ¡Bienvenido, {getUserFullName(user)}!
         </h1>
-        <p style={{ color: 'var(--text-secondary)', fontSize: '1.05rem', lineHeight: 1.5, margin: '0 0 32px' }}>
+        <p className="dashboard-subtitle">
           Has iniciado sesión correctamente con el rol de <strong>{user?.rol || 'DOCENTE'}</strong>.
         </p>
 
-        <div style={{
-          backgroundColor: 'var(--bg-surface)',
-          border: 'var(--border-width) solid var(--border-color)',
-          borderRadius: 'var(--border-radius)',
-          boxShadow: 'var(--shadow-main)',
-          padding: '24px',
-          textAlign: 'left'
-        }}>
-          <h3 style={{ margin: '0 0 8px', fontSize: '1.1rem' }}>Módulo 1: Autenticación y Contexto</h3>
-          <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', margin: 0 }}>
-            Puedes probar el selector de temas visuales en la esquina superior derecha (Minimalismo, Neobrutalismo, Pop Art, Memphis y Cyber Neón en modo claro y oscuro) para ver cómo muta la interfaz en tiempo real.
+        <div className="dashboard-card">
+          <h3 className="dashboard-card__title">Módulo 1: Autenticación y Contexto</h3>
+          <p className="dashboard-card__desc">
+            Puedes probar el selector flotante de estilos visuales (Minimalismo, Neobrutalismo, Pop Art, Memphis y Cyber Neón en modo claro y oscuro) para personalizar la interfaz en tiempo real.
           </p>
         </div>
       </main>

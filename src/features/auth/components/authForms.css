@@ -15,12 +15,18 @@
 
 .auth-form__brand {
   font-family: var(--font-display);
-  font-size: 1.85rem;
+  font-size: clamp(1.45rem, 3.5vw, 1.85rem);
   font-weight: 800;
   letter-spacing: -0.02em;
   color: var(--text-primary);
   margin: 0;
   line-height: 1.1;
+  font-style: normal !important;
+}
+
+[data-theme="popart"] .auth-form__brand {
+  font-size: clamp(1.3rem, 3vw, 1.6rem);
+  font-style: normal !important;
 }
 
 .auth-form__title {
