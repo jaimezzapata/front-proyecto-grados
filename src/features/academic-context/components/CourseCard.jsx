@@ -1,13 +1,13 @@
 import React from 'react';
 import { Button } from '../../../core/components/Button';
-import { BookOpen, Check, Layers, Users, Calendar, MapPin, Briefcase, Clock } from 'lucide-react';
+import { BookOpen, Check, Layers, Users, Calendar, MapPin, Briefcase, Clock, Pencil } from 'lucide-react';
 import './courseCard.css';
 
 /**
  * Componente atómico de Tarjeta de Curso CESDE
  * Estructura homogénea, alineada y simétrica para todos los cursos y grupos
  */
-export const CourseCard = ({ course, isActive, onSelect }) => {
+export const CourseCard = ({ course, isActive, onSelect, onEdit }) => {
   const asignatura = course.asignatura || course;
   const grupo = course.grupo || '01';
   const periodo = course.periodo_academico || '2026-2';
@@ -61,19 +61,33 @@ export const CourseCard = ({ course, isActive, onSelect }) => {
         </div>
       </div>
 
-      {/* Pie con estado y botón de selección */}
+      {/* Pie con estado y botones de acción */}
       <div className="course-card__footer">
-        <span style={{ fontSize: '0.74rem', color: 'var(--text-muted)' }}>
+        <span className="course-card__footer-tag">
           {modalidad === 'Empresarial' ? 'Convenio Empresarial' : 'Curso Regular'}
         </span>
-        <Button
-          variant={isActive ? 'primary' : 'outline'}
-          size="sm"
-          onClick={() => onSelect(course)}
-          icon={isActive ? <Check size={14} /> : <BookOpen size={14} />}
-        >
-          {isActive ? 'Grupo Activo' : 'Seleccionar'}
-        </Button>
+        <div className="course-card__footer-actions">
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={(e) => {
+              e.stopPropagation();
+              onEdit?.(course);
+            }}
+            icon={<Pencil size={13} />}
+            title="Editar materia o grupo"
+          >
+            Editar
+          </Button>
+          <Button
+            variant={isActive ? 'primary' : 'outline'}
+            size="sm"
+            onClick={() => onSelect(course)}
+            icon={isActive ? <Check size={14} /> : <BookOpen size={14} />}
+          >
+            {isActive ? 'Grupo Activo' : 'Seleccionar'}
+          </Button>
+        </div>
       </div>
     </div>
   );

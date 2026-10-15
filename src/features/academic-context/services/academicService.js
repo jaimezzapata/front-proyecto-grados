@@ -47,6 +47,35 @@ class AcademicService {
     const response = await httpClient.post('/academic/asignaturas', payload);
     return response.data;
   }
+
+  /**
+   * Actualiza la configuración de un grupo o los datos de la asignatura vinculada
+   * @param {number|string} id - ID de la asignación (DocenteAsignatura)
+   * @param {object} payload - Campos a actualizar
+   */
+  async updateMisAsignatura(id, payload) {
+    const response = await httpClient.put(`/academic/mis-asignaturas/${id}`, payload);
+    return response.data;
+  }
+
+  /**
+   * Desvincula una asignatura o grupo del docente
+   * @param {number|string} id - ID de la asignación (DocenteAsignatura)
+   */
+  async deleteMisAsignatura(id) {
+    const response = await httpClient.delete(`/academic/mis-asignaturas/${id}`);
+    return response.data;
+  }
+
+  /**
+   * Modifica los datos de una asignatura en el catálogo
+   * @param {number|string} id - ID de la asignatura
+   * @param {object} payload - { nombre, codigo, semestre, programa_id }
+   */
+  async updateAsignatura(id, payload) {
+    const response = await httpClient.put(`/academic/asignaturas/${id}`, payload);
+    return response.data;
+  }
 }
 
 export const academicService = new AcademicService();

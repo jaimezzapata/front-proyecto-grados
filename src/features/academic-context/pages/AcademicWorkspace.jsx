@@ -4,6 +4,7 @@ import { ActiveCourseBanner } from '../components/ActiveCourseBanner';
 import { CourseGrid } from '../components/CourseGrid';
 import { PeriodFilterSelector } from '../components/PeriodFilterSelector';
 import { LinkCourseModal } from '../components/LinkCourseModal';
+import { EditCourseModal } from '../components/EditCourseModal';
 import { Button } from '../../../core/components/Button';
 import { Plus, UploadCloud, Sparkles, ArrowRight } from 'lucide-react';
 import toast from 'react-hot-toast';
@@ -15,6 +16,7 @@ import '../components/courseCard.css';
 export const AcademicWorkspace = () => {
   const { selectedAsignatura } = useAcademic();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [courseToEdit, setCourseToEdit] = useState(null);
 
   const activeCourse = selectedAsignatura?.asignatura || selectedAsignatura;
   const activeCourseName = activeCourse?.nombre || 'Selecciona una asignatura';
@@ -59,7 +61,10 @@ export const AcademicWorkspace = () => {
           </div>
         </div>
 
-        <CourseGrid onOpenLinkModal={() => setIsModalOpen(true)} />
+        <CourseGrid
+          onOpenLinkModal={() => setIsModalOpen(true)}
+          onEditCourse={(course) => setCourseToEdit(course)}
+        />
       </section>
 
       {/* 3. Acciones Rápidas del Flujo (Módulos 2 y 3) */}
@@ -155,6 +160,13 @@ export const AcademicWorkspace = () => {
       <LinkCourseModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
+      />
+
+      {/* 5. Modal para editar materia o configuración de grupo */}
+      <EditCourseModal
+        isOpen={Boolean(courseToEdit)}
+        course={courseToEdit}
+        onClose={() => setCourseToEdit(null)}
       />
     </div>
   );

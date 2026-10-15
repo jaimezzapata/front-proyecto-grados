@@ -152,6 +152,53 @@ export const AcademicProvider = ({ children }) => {
     }
   };
 
+  /**
+   * Actualiza una asignación de curso existente (grupo, sede, modalidad, jornada, periodo o materia)
+   */
+  const actualizarAsignatura = async (id, payload) => {
+    try {
+      const updated = await academicService.updateMisAsignatura(id, payload);
+      toast.success('¡Asignatura actualizada exitosamente!');
+
+      setSelectedAsignatura((current) => {
+        if (current && current.id === id) {
+          localStorage.setItem(ACTIVE_COURSE_KEY, JSON.stringify(updated));
+          return updated;
+        }
+        return current;
+      });
+
+      await loadMisAsignaturas();
+      return updated;
+    } catch (error) {
+      toast.error(error.message || 'Error al actualizar la asignatura');
+      throw error;
+    }
+  };
+
+  /**
+   * Desvincula una asignación de curso del docente
+   */
+  const desvincularAsignatura = async (id) => {
+    try {
+      await academicService.deleteMisAsignatura(id);
+      toast.success('Asignatura desvinculada correctamente');
+
+      setSelectedAsignatura((current) => {
+        if (current && current.id === id) {
+          localStorage.removeItem(ACTIVE_COURSE_KEY);
+          return null;
+        }
+        return current;
+      });
+
+      await loadMisAsignaturas();
+    } catch (error) {
+      toast.error(error.message || 'Error al desvincular la asignatura');
+      throw error;
+    }
+  };
+
   const value = {
     allAsignaturas,
     misAsignaturas,
@@ -163,7 +210,9 @@ export const AcademicProvider = ({ children }) => {
     changePeriod,
     selectAsignatura,
     vincularAsignatura,
-    crearYVincularAsignatura
+    crearYVincularAsignatura,
+    actualizarAsignatura,
+    desvincularAsignatura
   };
 
   return (

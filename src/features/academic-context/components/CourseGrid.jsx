@@ -9,7 +9,7 @@ import './courseCard.css';
 /**
  * Cuadrícula responsiva de asignaturas del docente
  */
-export const CourseGrid = ({ onOpenLinkModal }) => {
+export const CourseGrid = ({ onOpenLinkModal, onEditCourse }) => {
   const { misAsignaturas, selectedAsignatura, selectedPeriod, loading, selectAsignatura } = useAcademic();
 
   if (loading) {
@@ -59,6 +59,7 @@ export const CourseGrid = ({ onOpenLinkModal }) => {
             course={course}
             isActive={isActive}
             onSelect={selectAsignatura}
+            onEdit={onEditCourse}
           />
         );
       })}

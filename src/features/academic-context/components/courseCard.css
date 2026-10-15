@@ -276,6 +276,20 @@
   gap: 10px;
   padding-top: 12px;
   border-top: var(--border-width) solid var(--border-subtle);
+  flex-wrap: wrap;
+}
+
+.course-card__footer-tag {
+  font-size: 0.74rem;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+.course-card__footer-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
 }
 
 /* Estado Vacío (Empty State) */
