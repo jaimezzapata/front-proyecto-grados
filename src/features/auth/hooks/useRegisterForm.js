@@ -42,9 +42,9 @@ export const useRegisterForm = () => {
     }
 
     if (!formData.correo_institucional.trim()) {
-      newErrors.correo_institucional = 'El correo institucional es requerido';
-    } else if (!formData.correo_institucional.toLowerCase().endsWith('@cesde.edu.co')) {
-      newErrors.correo_institucional = 'Debe ser un correo institucional (@cesde.edu.co)';
+      newErrors.correo_institucional = 'El correo electrónico es requerido';
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.correo_institucional.trim())) {
+      newErrors.correo_institucional = 'Debe ingresar un correo electrónico válido';
     }
 
     if (!formData.password) {

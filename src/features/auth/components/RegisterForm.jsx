@@ -49,13 +49,12 @@ export const RegisterForm = () => {
 
         <Input
           id="correo_institucional"
-          label="Correo Institucional"
+          label="Correo Electrónico"
           type="email"
-          placeholder="usuario@cesde.edu.co"
+          placeholder="usuario@ejemplo.com"
           value={formData.correo_institucional}
           onChange={handleChange}
           error={errors.correo_institucional}
-          helperText="Debe finalizar obligatoriamente en @cesde.edu.co"
           icon={<Mail size={18} />}
           required
           autoComplete="email"
