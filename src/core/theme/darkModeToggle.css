@@ -1,0 +1,61 @@
+/* ==========================================================================
+   DARK MODE TOGGLE BUTTON (Completamente Desacoplado & Multitema)
+   ========================================================================== */
+
+.dark-mode-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background-color: var(--bg-surface);
+  color: var(--text-primary);
+  border: var(--border-width) solid var(--border-color);
+  border-radius: var(--border-radius);
+  padding: 0 12px;
+  height: 40px;
+  cursor: pointer;
+  user-select: none;
+  font-family: var(--font-family);
+  font-size: 0.82rem;
+  font-weight: 700;
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition-speed) var(--transition-timing);
+  box-sizing: border-box;
+}
+
+.dark-mode-toggle:hover {
+  background-color: var(--bg-surface-hover);
+  border-color: var(--primary-color);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-main);
+}
+
+.dark-mode-toggle:active {
+  transform: translate(1px, 1px);
+  box-shadow: 1px 1px 0px var(--border-color);
+}
+
+.dark-mode-toggle__icon-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.dark-mode-toggle__icon {
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.dark-mode-toggle:hover .dark-mode-toggle__icon--sun {
+  transform: rotate(45deg);
+  color: var(--accent-yellow);
+}
+
+.dark-mode-toggle:hover .dark-mode-toggle__icon--moon {
+  transform: rotate(-20deg);
+  color: var(--primary-color);
+}
+
+.dark-mode-toggle__label {
+  display: inline-block;
+}

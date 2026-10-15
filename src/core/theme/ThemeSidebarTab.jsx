@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useTheme } from './ThemeContext';
-import { Palette, Sun, Moon, Check, Sparkles } from 'lucide-react';
+import { Palette, Check, Sparkles } from 'lucide-react';
 import './themeSidebarTab.css';
 
 export const ThemeSidebarTab = () => {
-  const { theme, mode, setTheme, toggleMode, THEME_LABELS } = useTheme();
+  const { theme, setTheme, THEME_LABELS } = useTheme();
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
@@ -41,16 +41,6 @@ export const ThemeSidebarTab = () => {
             <Sparkles size={15} />
             <span>Estilos de Diseño</span>
           </div>
-          <button
-            type="button"
-            className="theme-hover-tab__mode-btn"
-            onClick={toggleMode}
-            title={mode === 'light' ? 'Cambiar a Modo Oscuro' : 'Cambiar a Modo Claro'}
-            aria-label="Conmutar modo claro u oscuro"
-          >
-            {mode === 'light' ? <Moon size={14} /> : <Sun size={14} />}
-            <span>{mode === 'light' ? 'Oscuro' : 'Claro'}</span>
-          </button>
         </div>
 
         <div className="theme-hover-tab__list">

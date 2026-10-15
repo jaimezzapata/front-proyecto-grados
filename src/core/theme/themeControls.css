@@ -1,0 +1,99 @@
+/* ==========================================================================
+   THEME CONTROLS (Grupo Desacoplado: Modo Claro/Oscuro + Selector de Estilos)
+   ========================================================================== */
+
+/* Contenedor principal fijado al lateral derecho en Desktop */
+.theme-floating-group {
+  position: fixed;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
+  z-index: 9999;
+  filter: drop-shadow(-3px 3px 10px rgba(0, 0, 0, 0.12));
+}
+
+/* Botón independiente para conmutar Modo Claro / Oscuro */
+.theme-mode-fab {
+  width: 32px;
+  height: 38px;
+  background-color: var(--bg-surface);
+  color: var(--text-primary);
+  border: var(--border-width) solid var(--border-color);
+  border-right: none;
+  border-radius: var(--border-radius-sm) 0 0 var(--border-radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  cursor: pointer;
+  user-select: none;
+  box-sizing: border-box;
+  box-shadow: -2px 0 6px rgba(0, 0, 0, 0.08);
+  transition: all var(--transition-speed) ease;
+  flex-shrink: 0;
+}
+
+.theme-mode-fab:hover {
+  background-color: var(--primary-color);
+  color: var(--primary-contrast);
+  transform: translateX(-4px);
+  box-shadow: -4px 0 8px rgba(0, 0, 0, 0.15);
+}
+
+.theme-mode-fab:active {
+  transform: translateX(-1px);
+}
+
+.theme-mode-fab__icon {
+  flex-shrink: 0;
+  transition: transform 0.22s ease;
+}
+
+.theme-mode-fab:hover .theme-mode-fab__icon--sun {
+  transform: rotate(45deg);
+  color: var(--accent-yellow);
+}
+
+.theme-mode-fab:hover .theme-mode-fab__icon--moon {
+  transform: rotate(-15deg);
+}
+
+/* ==========================================================================
+   ADAPTACIÓN RESPONSIVE EN MÓVILES Y PANTALLAS PEQUEÑAS (<= 768px)
+   ========================================================================== */
+@media (max-width: 768px) {
+  .theme-floating-group {
+    top: auto;
+    bottom: 20px;
+    right: 16px;
+    left: auto;
+    transform: none !important;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.18));
+  }
+
+  /* El botón de modo se convierte en un FAB circular independiente */
+  .theme-mode-fab {
+    width: 44px;
+    height: 44px;
+    border: var(--border-width) solid var(--border-color);
+    border-radius: 50%;
+    box-shadow: var(--shadow-sm);
+    background-color: var(--bg-surface);
+    color: var(--text-primary);
+  }
+
+  .theme-mode-fab:hover {
+    transform: translateY(-2px);
+  }
+
+  .theme-mode-fab:active {
+    transform: translateY(1px);
+  }
+}

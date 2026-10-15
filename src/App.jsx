@@ -3,14 +3,14 @@ import { RouterProvider } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 import { ThemeProvider } from './core/theme/ThemeContext';
 import { AuthProvider } from './core/context/AuthContext';
-import { ThemeSidebarTab } from './core/theme/ThemeSidebarTab';
+import { ThemeControls } from './core/theme/ThemeControls';
 import { router } from './router';
 
 export function App() {
   return (
     <ThemeProvider>
       <AuthProvider>
-        <ThemeSidebarTab />
+        <ThemeControls />
         <Toaster
           position="top-right"
           toastOptions={{

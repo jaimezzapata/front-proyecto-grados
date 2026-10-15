@@ -1,27 +1,24 @@
-/* Contenedor principal anclado al lateral derecho en Desktop */
+/* Contenedor del selector de estilos dentro del grupo flotante */
 .theme-hover-tab {
-  position: fixed;
+  position: relative;
   right: 0;
-  top: 50%;
-  transform: translateY(-50%) translateX(calc(100% - 30px));
+  transform: translateX(calc(100% - 32px));
   display: flex;
   align-items: center;
-  z-index: 1000;
   transition: transform 0.24s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.24s ease;
-  filter: drop-shadow(-3px 3px 10px rgba(0, 0, 0, 0.12));
 }
 
 /* Al pasar el puntero o interactuar en Desktop */
 .theme-hover-tab:hover,
 .theme-hover-tab--open,
 .theme-hover-tab:focus-within {
-  transform: translateY(-50%) translateX(0);
+  transform: translateX(0);
 }
 
 /* Pestaña sutil que asoma en reposo */
 .theme-hover-tab__handle {
-  width: 30px;
-  height: 36px;
+  width: 32px;
+  height: 38px;
   background-color: var(--bg-surface);
   color: var(--text-primary);
   border: var(--border-width) solid var(--border-color);
@@ -177,15 +174,14 @@
 /* REUBICACIÓN EN MODO RESPONSIVE (MÓVIL / TABLET PEQUEÑA) */
 @media (max-width: 768px) {
   .theme-hover-tab {
+    position: relative;
     top: auto;
-    bottom: 20px;
-    right: 16px;
+    bottom: auto;
+    right: auto;
     left: auto;
     transform: none !important;
-    flex-direction: column-reverse;
-    align-items: flex-end;
-    filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.18));
-    z-index: 9999;
+    filter: none;
+    z-index: 10000;
   }
 
   .theme-hover-tab__handle {
