@@ -5,7 +5,7 @@ import './courseCard.css';
 
 /**
  * Componente atómico de Tarjeta de Curso CESDE
- * Presenta Sede, Modalidad, Jornada, Grupo y Periodo de forma estructurada
+ * Estructura homogénea, alineada y simétrica para todos los cursos y grupos
  */
 export const CourseCard = ({ course, isActive, onSelect }) => {
   const asignatura = course.asignatura || course;
@@ -20,33 +20,29 @@ export const CourseCard = ({ course, isActive, onSelect }) => {
 
   return (
     <div className={`course-card ${isActive ? 'course-card--active' : ''}`}>
+      {/* Franja de acento superior cuando el grupo está activo */}
       {isActive && <div className="course-card__active-stripe" />}
 
       <div>
-        {/* Cabecera con Código, Badges CESDE y Badge Activa */}
+        {/* Cabecera uniforme de chips (Código, Grupo, Sede) */}
         <div className="course-card__header">
-          <div style={{ display: 'flex', alignItems: 'center', gap: 6, flexWrap: 'wrap' }}>
-            <span className="course-card__code">{codigo}</span>
-            <span className="course-card__badge-group" title={`Grupo: ${grupo}`}>
-              <Users size={11} />
-              Grupo {grupo}
-            </span>
-            <span className="course-card__badge-sede" title={`Sede CESDE: ${sede}`}>
-              <MapPin size={11} />
-              {sede}
-            </span>
-          </div>
-
-          {isActive && (
-            <span className="course-card__badge-active">
-              <Check size={12} style={{ display: 'inline', marginRight: 4 }} />
-              Activa
-            </span>
-          )}
+          <span className="course-card__code" title={`Código: ${codigo}`}>
+            {codigo}
+          </span>
+          <span className="course-card__badge-group" title={`Grupo asignado: ${grupo}`}>
+            <Users size={11} />
+            Grupo {grupo}
+          </span>
+          <span className="course-card__badge-sede" title={`Sede CESDE: ${sede}`}>
+            <MapPin size={11} />
+            {sede}
+          </span>
         </div>
 
-        {/* Nombre de la Asignatura */}
-        <h3 className="course-card__title">{nombre}</h3>
+        {/* Nombre de la Asignatura (Altura uniforme para todas las tarjetas) */}
+        <h3 className="course-card__title" title={nombre}>
+          {nombre}
+        </h3>
 
         {/* Metadatos Institucionales (Modalidad, Jornada, Semestre, Periodo) */}
         <div className="course-card__meta">
@@ -65,7 +61,7 @@ export const CourseCard = ({ course, isActive, onSelect }) => {
         </div>
       </div>
 
-      {/* Pie con botón de selección de grupo */}
+      {/* Pie con estado y botón de selección */}
       <div className="course-card__footer">
         <span style={{ fontSize: '0.74rem', color: 'var(--text-muted)' }}>
           {modalidad === 'Empresarial' ? 'Convenio Empresarial' : 'Curso Regular'}
