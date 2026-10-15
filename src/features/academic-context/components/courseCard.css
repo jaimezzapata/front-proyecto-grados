@@ -54,13 +54,12 @@
 
 .active-course-banner__title {
   font-family: var(--font-display);
-  font-size: 1.05rem;
-  font-weight: 800;
+  font-size: 1.02rem;
+  font-weight: 700;
   color: var(--text-primary);
   margin: 0;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  line-height: 1.35;
+  word-break: break-word;
   font-style: normal;
 }
 
@@ -393,6 +392,15 @@
     gap: 12px;
   }
 
+  .active-course-banner__info {
+    width: 100%;
+  }
+
+  .active-course-banner__title {
+    font-size: 0.95rem;
+    white-space: normal;
+  }
+
   .active-course-banner__actions {
     width: 100%;
     justify-content: flex-end;
@@ -410,6 +418,18 @@
 
   .courses-section-header button {
     width: 100%;
+  }
+
+  .courses-empty-state {
+    padding: 28px 16px;
+  }
+
+  .courses-empty-state__title {
+    font-size: 1.15rem;
+  }
+
+  .courses-empty-state__desc {
+    font-size: 0.85rem;
   }
 
   .modal-overlay {
