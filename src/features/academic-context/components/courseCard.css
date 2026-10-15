@@ -299,6 +299,44 @@
   border-bottom: var(--border-width) solid var(--border-subtle);
 }
 
+.modal-tabs {
+  display: flex;
+  border-bottom: var(--border-width) solid var(--border-subtle);
+  background-color: var(--bg-surface-hover);
+  padding: 4px 6px 0;
+  gap: 6px;
+}
+
+.modal-tab-btn {
+  flex: 1;
+  padding: 10px 14px;
+  background: transparent;
+  border: none;
+  border-bottom: 3px solid transparent;
+  font-family: var(--font-family);
+  font-size: 0.84rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: all var(--transition-speed);
+}
+
+.modal-tab-btn:hover {
+  color: var(--text-primary);
+}
+
+.modal-tab-btn--active {
+  color: var(--primary-color);
+  border-bottom-color: var(--primary-color);
+  background-color: var(--bg-surface);
+  border-top-left-radius: var(--border-radius-sm);
+  border-top-right-radius: var(--border-radius-sm);
+}
+
 .modal-header__title {
   font-family: var(--font-display);
   font-size: 1.2rem;

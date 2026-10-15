@@ -79,13 +79,41 @@ export const AcademicProvider = ({ children }) => {
     }
   };
 
+  /**
+   * Crea una nueva materia en el catálogo y la vincula de inmediato al docente
+   */
+  const crearYVincularAsignatura = async ({ programa_id, codigo, nombre, semestre, periodo_academico, grupo }) => {
+    try {
+      const nuevaAsignatura = await academicService.createAsignatura({
+        programa_id: Number(programa_id),
+        codigo: codigo.trim().toUpperCase(),
+        nombre: nombre.trim(),
+        semestre: semestre ? Number(semestre) : null
+      });
+
+      await academicService.vincularAsignatura({
+        asignatura_id: nuevaAsignatura.id,
+        periodo_academico: periodo_academico.trim(),
+        grupo: grupo?.trim() || '01'
+      });
+
+      toast.success(`¡"${nombre}" creada y vinculada con éxito!`);
+      await loadMisAsignaturas();
+      return nuevaAsignatura;
+    } catch (error) {
+      toast.error(error.message || 'Error al crear y vincular la asignatura');
+      throw error;
+    }
+  };
+
   const value = {
     misAsignaturas,
     selectedAsignatura,
     loading,
     refreshAsignaturas: loadMisAsignaturas,
     selectAsignatura,
-    vincularAsignatura
+    vincularAsignatura,
+    crearYVincularAsignatura
   };
 
   return (
