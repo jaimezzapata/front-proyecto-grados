@@ -3,7 +3,6 @@ import { createBrowserRouter, Navigate } from 'react-router-dom';
 import { LoginPage } from '../features/auth/pages/LoginPage';
 import { RegisterPage } from '../features/auth/pages/RegisterPage';
 import { useAuth } from '../core/context/AuthContext';
-import { ThemeSelector } from '../core/theme/ThemeSelector';
 import { Button } from '../core/components/Button';
 import { LogOut, GraduationCap, Sparkles } from 'lucide-react';
 
@@ -57,8 +56,7 @@ const DashboardView = () => {
           </span>
         </div>
 
-        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-          <ThemeSelector />
+        <div>
           <Button variant="outline" size="sm" icon={<LogOut size={16} />} onClick={logout}>
             Cerrar Sesión
           </Button>
