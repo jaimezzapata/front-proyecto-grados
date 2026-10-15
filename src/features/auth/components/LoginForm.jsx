@@ -13,9 +13,9 @@ export const LoginForm = () => {
   return (
     <form onSubmit={handleSubmit} className="auth-form" noValidate>
       <div className="auth-form__header">
-        <h2 className="auth-form__title">Iniciar Sesión</h2>
+        <h1 className="auth-form__brand">Z-SUITE</h1>
         <p className="auth-form__subtitle">
-          Ingresa tus credenciales docentes para acceder a la plataforma
+          Ingresa tus credenciales para acceder a la plataforma
         </p>
       </div>
 
@@ -24,9 +24,9 @@ export const LoginForm = () => {
       <div className="auth-form__fields">
         <Input
           id="email"
-          label="Correo Institucional"
+          label="Correo Electrónico"
           type="email"
-          placeholder="ejemplo@cesde.edu.co"
+          placeholder="usuario@ejemplo.edu.co"
           value={formData.email}
           onChange={handleChange}
           error={errors.email}
@@ -57,7 +57,7 @@ export const LoginForm = () => {
             defaultChecked
             className="auth-form__checkbox"
           />
-          <span>Recordar mis datos en este equipo para futuras sesiones</span>
+          <span>Recordar sesión</span>
         </label>
       </div>
 
@@ -70,16 +70,12 @@ export const LoginForm = () => {
           icon={<LogIn size={18} />}
           className="auth-form__submit-btn"
         >
-          {isSubmitting ? 'Verificando...' : 'Acceder al Sistema'}
+          {isSubmitting ? 'Iniciando sesión...' : 'Iniciar Sesión'}
         </Button>
       </div>
 
-      <div className="auth-form__security-note">
-        <span>🛡️ Tus credenciales y materiales de clase viajan directamente con cifrado SSL a Supabase.</span>
-      </div>
-
       <div className="auth-form__footer">
-        <span>¿No tienes una cuenta de docente?</span>
+        <span>¿No tienes una cuenta?</span>
         <Link to="/register" className="auth-form__link">
           Crear cuenta
         </Link>

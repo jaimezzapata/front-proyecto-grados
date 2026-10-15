@@ -13,9 +13,9 @@ export const RegisterForm = () => {
   return (
     <form onSubmit={handleSubmit} className="auth-form" noValidate>
       <div className="auth-form__header">
-        <h2 className="auth-form__title">Registro Docente</h2>
+        <h1 className="auth-form__brand">Z-SUITE</h1>
         <p className="auth-form__subtitle">
-          Crea tu perfil académico para generar y gestionar evaluaciones con IA
+          Crea tu cuenta para acceder a la plataforma
         </p>
       </div>
 
@@ -97,12 +97,12 @@ export const RegisterForm = () => {
           icon={<UserPlus size={18} />}
           className="auth-form__submit-btn"
         >
-          {isSubmitting ? 'Registrando...' : 'Completar Registro'}
+          {isSubmitting ? 'Creando cuenta...' : 'Crear Cuenta'}
         </Button>
       </div>
 
       <div className="auth-form__footer">
-        <span>¿Ya tienes una cuenta registrada?</span>
+        <span>¿Ya tienes una cuenta?</span>
         <Link to="/login" className="auth-form__link">
           Iniciar sesión
         </Link>

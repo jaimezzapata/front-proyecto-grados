@@ -10,8 +10,8 @@
 .theme-palette-btn {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  padding: 8px 12px;
+  height: 38px;
+  box-sizing: border-box;
   background-color: var(--bg-surface);
   color: var(--text-primary);
   border: var(--border-width) solid var(--border-color);
@@ -22,6 +22,7 @@
   font-weight: 600;
   cursor: pointer;
   transition: all var(--transition-speed) var(--transition-timing);
+  flex-shrink: 0;
 }
 
 .theme-mode-btn:hover,
@@ -31,15 +32,51 @@
 }
 
 .theme-mode-btn {
-  padding: 8px;
+  width: 38px;
+  min-width: 38px;
+  max-width: 38px;
+  padding: 0;
+  justify-content: center;
+}
+
+.theme-palette-btn {
+  width: 170px;
+  min-width: 170px;
+  max-width: 170px;
+  padding: 0 10px;
+  gap: 8px;
+  justify-content: space-between;
+}
+
+.theme-btn-icon {
+  flex-shrink: 0;
 }
 
 .theme-current-name {
-  display: inline-block;
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-align: left;
+}
+
+.theme-chevron-icon {
+  flex-shrink: 0;
+  opacity: 0.7;
 }
 
 @media (max-width: 640px) {
-  .theme-current-name {
+  .theme-palette-btn {
+    width: 38px;
+    min-width: 38px;
+    max-width: 38px;
+    padding: 0;
+    justify-content: center;
+  }
+
+  .theme-current-name,
+  .theme-chevron-icon {
     display: none;
   }
 }

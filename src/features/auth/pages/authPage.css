@@ -98,9 +98,52 @@
   box-sizing: border-box;
 }
 
+.auth-page--login-only {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 24px 16px;
+  box-sizing: border-box;
+  position: relative;
+}
+
+.auth-page__content--login-only {
+  max-width: 460px;
+  width: 100%;
+  padding: 0;
+  margin: auto;
+}
+
+.auth-page__content--register-only {
+  max-width: 520px;
+  width: 100%;
+  padding: 0;
+  margin: auto;
+}
+
+.auth-page__main-card--login-only {
+  max-width: 460px;
+  width: 100%;
+  padding: 36px 32px;
+  box-sizing: border-box;
+}
+
+.auth-page__main-card--register-only {
+  max-width: 520px;
+  width: 100%;
+  padding: 36px 36px;
+  box-sizing: border-box;
+}
+
 @media (max-width: 640px) {
   .auth-page__main-card {
     padding: 24px 18px;
+  }
+
+  .auth-page__main-card--login-only,
+  .auth-page__main-card--register-only {
+    padding: 28px 20px;
   }
 }
 

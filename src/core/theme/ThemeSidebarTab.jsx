@@ -1,75 +1,81 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useTheme } from './ThemeContext';
-import { ChevronRight, Check, Sparkles } from 'lucide-react';
+import { Palette, Sun, Moon, Check, Sparkles } from 'lucide-react';
 import './themeSidebarTab.css';
 
 export const ThemeSidebarTab = () => {
-  const { theme, setTheme, THEME_LABELS } = useTheme();
+  const { theme, mode, setTheme, toggleMode, THEME_LABELS } = useTheme();
   const [isOpen, setIsOpen] = useState(false);
 
-  const getThemeSymbol = () => {
-    switch (theme) {
-      case 'popart':
-        return '⚡';
-      case 'brutalism':
-        return '□';
-      case 'memphis':
-        return '△';
-      case 'neon':
-        return '✦';
-      default:
-        return '●';
-    }
-  };
+  useEffect(() => {
+    if (!isOpen) return;
+    const handleClickOutside = (e) => {
+      if (!e.target.closest('.theme-hover-tab')) {
+        setIsOpen(false);
+      }
+    };
+    document.addEventListener('click', handleClickOutside);
+    return () => document.removeEventListener('click', handleClickOutside);
+  }, [isOpen]);
 
   return (
-    <>
+    <aside
+      className={`theme-hover-tab ${isOpen ? 'theme-hover-tab--open' : ''}`}
+      aria-label="Selector de estilo visual"
+    >
+      {/* Pestaña / Botón compacto y sutil */}
       <button
         type="button"
-        className="theme-sidebar-tab"
-        onClick={() => setIsOpen(!isOpen)}
+        className="theme-hover-tab__handle"
+        onClick={() => setIsOpen((prev) => !prev)}
         title="Cambiar estilo de diseño"
-        aria-label="Abrir panel lateral de estilos"
+        aria-label="Abrir selector de estilos"
       >
-        <span className="theme-sidebar-tab__symbol">{getThemeSymbol()}</span>
-        <span className="theme-sidebar-tab__text">ESTILOS</span>
-        <span className="theme-sidebar-tab__arrow">‹</span>
+        <Palette size={16} className="theme-hover-tab__icon" />
       </button>
 
-      {isOpen && (
-        <>
-          <div className="theme-sidebar-backdrop" onClick={() => setIsOpen(false)} />
-          <div className="theme-sidebar-panel">
-            <div className="theme-sidebar-panel__header">
-              <Sparkles size={16} />
-              <span>Selecciona un Estilo</span>
-            </div>
-
-            <div className="theme-sidebar-panel__list">
-              {Object.entries(THEME_LABELS).map(([key, item]) => {
-                const isActive = theme === key;
-                return (
-                  <button
-                    key={key}
-                    type="button"
-                    className={`theme-sidebar-panel__item ${isActive ? 'active' : ''}`}
-                    onClick={() => {
-                      setTheme(key);
-                      setIsOpen(false);
-                    }}
-                  >
-                    <div>
-                      <div className="theme-sidebar-panel__name">{item.name}</div>
-                      <div className="theme-sidebar-panel__desc">{item.desc}</div>
-                    </div>
-                    {isActive && <Check size={16} />}
-                  </button>
-                );
-              })}
-            </div>
+      {/* Panel que se revela al pasar el cursor o tocar */}
+      <div className="theme-hover-tab__panel">
+        <div className="theme-hover-tab__header">
+          <div className="theme-hover-tab__header-title">
+            <Sparkles size={15} />
+            <span>Estilos de Diseño</span>
           </div>
-        </>
-      )}
-    </>
+          <button
+            type="button"
+            className="theme-hover-tab__mode-btn"
+            onClick={toggleMode}
+            title={mode === 'light' ? 'Cambiar a Modo Oscuro' : 'Cambiar a Modo Claro'}
+            aria-label="Conmutar modo claro u oscuro"
+          >
+            {mode === 'light' ? <Moon size={14} /> : <Sun size={14} />}
+            <span>{mode === 'light' ? 'Oscuro' : 'Claro'}</span>
+          </button>
+        </div>
+
+        <div className="theme-hover-tab__list">
+          {Object.entries(THEME_LABELS).map(([key, item]) => {
+            const isActive = theme === key;
+            return (
+              <button
+                key={key}
+                type="button"
+                className={`theme-hover-tab__item ${isActive ? 'active' : ''}`}
+                onClick={() => {
+                  setTheme(key);
+                  setIsOpen(false);
+                }}
+              >
+                <div className="theme-hover-tab__item-info">
+                  <span className="theme-hover-tab__item-name">{item.name}</span>
+                  <span className="theme-hover-tab__item-desc">{item.desc}</span>
+                </div>
+                {isActive && <Check size={15} className="theme-hover-tab__check" />}
+              </button>
+            );
+          })}
+        </div>
+      </div>
+    </aside>
   );
 };

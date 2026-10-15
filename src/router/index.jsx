@@ -53,7 +53,7 @@ const DashboardView = () => {
             <GraduationCap size={20} />
           </div>
           <span style={{ fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: '1.25rem' }}>
-            EvalIA
+            Z-SUITE
           </span>
         </div>
 

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useTheme } from './ThemeContext';
-import { Palette, Sun, Moon, Check, Sparkles } from 'lucide-react';
+import { Palette, Sun, Moon, Check, Sparkles, ChevronDown } from 'lucide-react';
 import './themeSelector.css';
 
 export const ThemeSelector = () => {
@@ -28,8 +28,9 @@ export const ThemeSelector = () => {
         title="Cambiar estilo de diseño"
         aria-label="Abrir selector de temas visuales"
       >
-        <Palette size={18} />
+        <Palette size={18} className="theme-btn-icon" />
         <span className="theme-current-name">{THEME_LABELS[theme]?.name}</span>
+        <ChevronDown size={14} className="theme-chevron-icon" />
       </button>
 
       {/* Menú desplegable flotante */}
