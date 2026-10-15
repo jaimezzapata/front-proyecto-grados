@@ -5,7 +5,9 @@ import { RegisterPage } from '../features/auth/pages/RegisterPage';
 import { useAuth } from '../core/context/AuthContext';
 import { Button } from '../core/components/Button';
 import { PageLoader } from '../core/components/Loader';
-import { LogOut, GraduationCap, Sparkles } from 'lucide-react';
+import { Avatar } from '../core/components/Avatar';
+import { getUserFullName } from '../core/utils/userUtils';
+import { LogOut, GraduationCap } from 'lucide-react';
 
 /**
  * Guardia de ruta protegida para docentes autenticados
@@ -62,7 +64,8 @@ const DashboardView = () => {
           </span>
         </div>
 
-        <div>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+          <Avatar user={user} size="sm" showDetails />
           <Button variant="outline" size="sm" icon={<LogOut size={16} />} onClick={logout}>
             Cerrar Sesión
           </Button>
@@ -70,27 +73,15 @@ const DashboardView = () => {
       </header>
 
       <main style={{ maxWidth: '800px', margin: '40px auto', textAlign: 'center' }}>
-        <div style={{
-          display: 'inline-flex',
-          alignItems: 'center',
-          gap: '6px',
-          padding: '6px 14px',
-          backgroundColor: 'var(--badge-bg)',
-          color: 'var(--badge-text)',
-          borderRadius: '999px',
-          fontSize: '0.85rem',
-          fontWeight: 700,
-          marginBottom: '16px'
-        }}>
-          <Sparkles size={16} />
-          <span>Sesión Activa</span>
+        <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '16px' }}>
+          <Avatar user={user} size="lg" />
         </div>
 
-        <h1 style={{ fontFamily: 'var(--font-display)', fontSize: '2rem', fontWeight: 800, margin: '0 0 12px' }}>
-          ¡Bienvenido, Profesor {user?.nombres}!
+        <h1 style={{ fontFamily: 'var(--font-display)', fontSize: '2rem', fontWeight: 800, margin: '0 0 10px' }}>
+          ¡Bienvenido, {getUserFullName(user)}!
         </h1>
         <p style={{ color: 'var(--text-secondary)', fontSize: '1.05rem', lineHeight: 1.5, margin: '0 0 32px' }}>
-          Has iniciado sesión correctamente con el rol de <strong>{user?.rol || 'DOCENTE'}</strong>. El módulo de autenticación y registro está completamente conectado y operativo.
+          Has iniciado sesión correctamente con el rol de <strong>{user?.rol || 'DOCENTE'}</strong>.
         </p>
 
         <div style={{

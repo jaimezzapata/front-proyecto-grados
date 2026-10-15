@@ -1,0 +1,76 @@
+/* ==========================================================================
+   AVATAR STYLES (Adaptable al sistema de temas de Z-SUITE)
+   ========================================================================== */
+
+.core-avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--primary-color);
+  color: var(--primary-contrast);
+  border: var(--border-width) solid var(--border-color);
+  border-radius: 50%;
+  font-family: var(--font-display);
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  user-select: none;
+  flex-shrink: 0;
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition-speed) var(--transition-timing);
+}
+
+/* Tamaños */
+.core-avatar--sm {
+  width: 32px;
+  height: 32px;
+  font-size: 0.78rem;
+}
+
+.core-avatar--md {
+  width: 40px;
+  height: 40px;
+  font-size: 0.95rem;
+}
+
+.core-avatar--lg {
+  width: 54px;
+  height: 54px;
+  font-size: 1.25rem;
+}
+
+.core-avatar--xl {
+  width: 72px;
+  height: 72px;
+  font-size: 1.6rem;
+}
+
+/* Variante Badge Usuario en Header / Tarjetas */
+.core-user-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+}
+
+.core-user-chip__info {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.core-user-chip__name {
+  font-family: var(--font-family);
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.2;
+}
+
+.core-user-chip__role {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
