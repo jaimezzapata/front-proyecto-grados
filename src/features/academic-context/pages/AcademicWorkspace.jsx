@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useAcademic } from '../context/AcademicContext';
 import { ActiveCourseBanner } from '../components/ActiveCourseBanner';
 import { CourseGrid } from '../components/CourseGrid';
+import { PeriodFilterSelector } from '../components/PeriodFilterSelector';
 import { LinkCourseModal } from '../components/LinkCourseModal';
 import { Button } from '../../../core/components/Button';
 import { Plus, UploadCloud, Sparkles, ArrowRight } from 'lucide-react';
@@ -41,17 +42,21 @@ export const AcademicWorkspace = () => {
               Mis Asignaturas Asignadas
             </h2>
             <p className="courses-section-header__desc">
-              Selecciona el curso sobre el cual deseas gestionar material o crear evaluaciones con IA.
+              Selecciona el curso y grupo específico para gestionar material o crear evaluaciones.
             </p>
           </div>
-          <Button
-            variant="primary"
-            size="sm"
-            icon={<Plus size={16} />}
-            onClick={() => setIsModalOpen(true)}
-          >
-            Vincular Asignatura
-          </Button>
+
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap' }}>
+            <PeriodFilterSelector />
+            <Button
+              variant="primary"
+              size="sm"
+              icon={<Plus size={16} />}
+              onClick={() => setIsModalOpen(true)}
+            >
+              Vincular Asignatura
+            </Button>
+          </div>
         </div>
 
         <CourseGrid onOpenLinkModal={() => setIsModalOpen(true)} />

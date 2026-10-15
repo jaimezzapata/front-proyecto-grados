@@ -95,6 +95,65 @@
   margin: 4px 0 0;
 }
 
+/* Selector de Filtro de Periodo Académico */
+.period-filter {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background-color: var(--bg-surface);
+  border: var(--border-width) solid var(--border-color);
+  border-radius: var(--border-radius-sm);
+  padding: 0 10px;
+  height: 38px;
+  box-sizing: border-box;
+  box-shadow: var(--shadow-sm);
+}
+
+.period-filter__label {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.76rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--text-secondary);
+  cursor: pointer;
+  user-select: none;
+}
+
+.period-filter__icon {
+  color: var(--primary-color);
+}
+
+.period-filter__select {
+  background: transparent;
+  border: none;
+  font-family: var(--font-family);
+  font-size: 0.84rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  cursor: pointer;
+  outline: none;
+  padding: 4px 0;
+}
+
+/* Badge de Grupo en Tarjeta */
+.course-card__badge-group {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.74rem;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+  padding: 3px 8px;
+  background-color: var(--bg-surface-elevated, var(--bg-surface-hover));
+  color: var(--text-primary);
+  border: var(--border-width) solid var(--border-color);
+  border-radius: var(--border-radius-sm);
+  box-shadow: var(--shadow-sm);
+}
+
 /* Cuadrícula de Asignaturas */
 .courses-grid {
   display: grid;

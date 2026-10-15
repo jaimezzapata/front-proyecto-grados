@@ -1,12 +1,14 @@
-import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
+import React, { createContext, useContext, useState, useEffect, useCallback, useMemo } from 'react';
 import { academicService } from '../services/academicService';
+import { getCurrentPeriod, getAvailablePeriods } from '../utils/academicUtils';
 import toast from 'react-hot-toast';
 
 const AcademicContext = createContext(null);
 const ACTIVE_COURSE_KEY = 'evalia_active_course';
 
 export const AcademicProvider = ({ children }) => {
-  const [misAsignaturas, setMisAsignaturas] = useState([]);
+  const [allAsignaturas, setAllAsignaturas] = useState([]);
+  const [selectedPeriod, setSelectedPeriod] = useState(getCurrentPeriod);
   const [selectedAsignatura, setSelectedAsignatura] = useState(() => {
     try {
       const stored = localStorage.getItem(ACTIVE_COURSE_KEY);
@@ -18,23 +20,28 @@ export const AcademicProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
 
   /**
-   * Carga las asignaturas asignadas al docente autenticado
+   * Carga todas las asignaciones de asignaturas del docente autenticado
    */
   const loadMisAsignaturas = useCallback(async () => {
     try {
       setLoading(true);
       const data = await academicService.getMisAsignaturas();
-      setMisAsignaturas(data);
+      setAllAsignaturas(data || []);
 
-      // Si hay asignaturas y no hay seleccionada previa (o la previa ya no existe), seleccionar la primera por defecto
+      // Validar o autoasignar materia activa
       setSelectedAsignatura((current) => {
         if (!data || data.length === 0) {
           localStorage.removeItem(ACTIVE_COURSE_KEY);
           return null;
         }
-        if (current && data.some((item) => (item.asignatura?.id || item.id) === (current.asignatura?.id || current.id))) {
-          return current;
+
+        // Si ya había una seleccionada y sigue existiendo la misma asignación exacta (mismo id de asignación)
+        if (current) {
+          const match = data.find((item) => item.id === current.id);
+          if (match) return match;
         }
+
+        // Si no, tomar la primera asignación
         const defaultCourse = data[0];
         localStorage.setItem(ACTIVE_COURSE_KEY, JSON.stringify(defaultCourse));
         return defaultCourse;
@@ -51,26 +58,60 @@ export const AcademicProvider = ({ children }) => {
   }, [loadMisAsignaturas]);
 
   /**
-   * Selecciona una asignatura activa
+   * Periodos disponibles calculados dinámicamente
    */
-  const selectAsignatura = (asignatura) => {
-    setSelectedAsignatura(asignatura);
-    if (asignatura) {
-      localStorage.setItem(ACTIVE_COURSE_KEY, JSON.stringify(asignatura));
-      const nombre = asignatura.asignatura?.nombre || asignatura.nombre || 'Asignatura';
-      toast.success(`Contexto activo: ${nombre}`, { id: 'course-selection' });
+  const availablePeriods = useMemo(() => {
+    return getAvailablePeriods(allAsignaturas);
+  }, [allAsignaturas]);
+
+  /**
+   * Asignaturas filtradas según el periodo seleccionado (o todas si es 'ALL')
+   */
+  const misAsignaturas = useMemo(() => {
+    if (selectedPeriod === 'ALL') {
+      return allAsignaturas;
+    }
+    return allAsignaturas.filter(
+      (course) => course.periodo_academico === selectedPeriod
+    );
+  }, [allAsignaturas, selectedPeriod]);
+
+  /**
+   * Cambia el periodo académico de visualización
+   */
+  const changePeriod = (period) => {
+    setSelectedPeriod(period);
+  };
+
+  /**
+   * Selecciona una asignatura activa (curso y grupo específico)
+   */
+  const selectAsignatura = (courseAssignment) => {
+    setSelectedAsignatura(courseAssignment);
+    if (courseAssignment) {
+      localStorage.setItem(ACTIVE_COURSE_KEY, JSON.stringify(courseAssignment));
+      const asig = courseAssignment.asignatura || courseAssignment;
+      const nombre = asig?.nombre || 'Asignatura';
+      const grupo = courseAssignment.grupo ? `(Grupo ${courseAssignment.grupo})` : '';
+      toast.success(`Contexto activo: ${nombre} ${grupo}`.trim(), { id: 'course-selection' });
     } else {
       localStorage.removeItem(ACTIVE_COURSE_KEY);
     }
   };
 
   /**
-   * Vincula una nueva materia y refresca el listado
+   * Vincula una materia existente y refresca
    */
   const vincularAsignatura = async (payload) => {
     try {
       const result = await academicService.vincularAsignatura(payload);
       toast.success('¡Asignatura vinculada exitosamente!');
+      
+      // Sincronizar el periodo con el de la materia vinculada
+      if (payload.periodo_academico) {
+        setSelectedPeriod(payload.periodo_academico);
+      }
+      
       await loadMisAsignaturas();
       return result;
     } catch (error) {
@@ -98,6 +139,11 @@ export const AcademicProvider = ({ children }) => {
       });
 
       toast.success(`¡"${nombre}" creada y vinculada con éxito!`);
+      
+      if (periodo_academico) {
+        setSelectedPeriod(periodo_academico.trim());
+      }
+      
       await loadMisAsignaturas();
       return nuevaAsignatura;
     } catch (error) {
@@ -107,10 +153,14 @@ export const AcademicProvider = ({ children }) => {
   };
 
   const value = {
+    allAsignaturas,
     misAsignaturas,
     selectedAsignatura,
+    selectedPeriod,
+    availablePeriods,
     loading,
     refreshAsignaturas: loadMisAsignaturas,
+    changePeriod,
     selectAsignatura,
     vincularAsignatura,
     crearYVincularAsignatura

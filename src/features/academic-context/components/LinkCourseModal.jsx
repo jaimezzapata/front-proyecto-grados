@@ -6,13 +6,15 @@ import { X, Plus, BookOpen, Sparkles, FolderPlus } from 'lucide-react';
 import toast from 'react-hot-toast';
 import './courseCard.css';
 
+import { getCurrentPeriod } from '../utils/academicUtils';
+
 /**
  * Modal dual para:
  * 1. Vincular una asignatura existente del catálogo institucional
  * 2. O crear una nueva asignatura in-place y vincularla inmediatamente
  */
 export const LinkCourseModal = ({ isOpen, onClose }) => {
-  const { vincularAsignatura, crearYVincularAsignatura } = useAcademic();
+  const { vincularAsignatura, crearYVincularAsignatura, selectedPeriod } = useAcademic();
 
   // Modo activo: 'catalogo' | 'crear'
   const [activeTab, setActiveTab] = useState('catalogo');
@@ -23,10 +25,13 @@ export const LinkCourseModal = ({ isOpen, onClose }) => {
   const [loadingCatalog, setLoadingCatalog] = useState(false);
   const [submitting, setSubmitting] = useState(false);
 
+  // Periodo activo por defecto
+  const defaultPeriod = selectedPeriod === 'ALL' ? getCurrentPeriod() : (selectedPeriod || getCurrentPeriod());
+
   // Formulario 1: Vincular Existente
   const [selectedPrograma, setSelectedPrograma] = useState('');
   const [selectedAsignaturaId, setSelectedAsignaturaId] = useState('');
-  const [periodo, setPeriodo] = useState('2026-1');
+  const [periodo, setPeriodo] = useState(defaultPeriod);
   const [grupo, setGrupo] = useState('01');
 
   // Formulario 2: Crear Nueva Asignatura
@@ -34,8 +39,17 @@ export const LinkCourseModal = ({ isOpen, onClose }) => {
   const [newCodigo, setNewCodigo] = useState('');
   const [newSemestre, setNewSemestre] = useState('1');
   const [newProgramaId, setNewProgramaId] = useState('');
-  const [newPeriodo, setNewPeriodo] = useState('2026-1');
+  const [newPeriodo, setNewPeriodo] = useState(defaultPeriod);
   const [newGrupo, setNewGrupo] = useState('01');
+
+  // Sincronizar periodos al abrir
+  useEffect(() => {
+    if (isOpen) {
+      const p = selectedPeriod === 'ALL' ? getCurrentPeriod() : (selectedPeriod || getCurrentPeriod());
+      setPeriodo(p);
+      setNewPeriodo(p);
+    }
+  }, [isOpen, selectedPeriod]);
 
   // Cargar catálogo al abrir
   useEffect(() => {
