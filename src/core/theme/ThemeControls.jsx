@@ -30,7 +30,7 @@ export const ThemeControls = () => {
         )}
       </button>
 
-      {/* Pestaña independiente para elegir entre los 5 estilos visuales */}
+      {/* Pestaña independiente para elegir entre los estilos visuales */}
       <ThemeSidebarTab />
     </div>
   );

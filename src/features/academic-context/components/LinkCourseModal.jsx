@@ -5,6 +5,7 @@ import { Button } from '../../../core/components/Button';
 import { X, Plus, BookOpen, MapPin, Briefcase, Clock, FolderPlus } from 'lucide-react';
 import { getCurrentPeriod } from '../utils/academicUtils';
 import { CesdeConfigFields } from './CesdeConfigFields';
+import { ManageProgramsModal } from './ManageProgramsModal';
 import toast from 'react-hot-toast';
 import './courseCard.css';
 
@@ -20,6 +21,7 @@ export const LinkCourseModal = ({ isOpen, onClose }) => {
 
   // Modo activo: 'catalogo' | 'crear'
   const [activeTab, setActiveTab] = useState('catalogo');
+  const [isManagingPrograms, setIsManagingPrograms] = useState(false);
 
   // Catálogos
   const [programas, setProgramas] = useState([]);
@@ -62,40 +64,34 @@ export const LinkCourseModal = ({ isOpen, onClose }) => {
     }
   }, [modalidad, jornada]);
 
+  const fetchCatalog = async () => {
+    try {
+      setLoadingCatalog(true);
+      const [progList, asigList] = await Promise.all([
+        academicService.getProgramas(),
+        academicService.getAsignaturas()
+      ]);
+      setProgramas(progList);
+      setAsignaturas(asigList);
+      if (progList.length > 0) {
+        setSelectedPrograma((prev) => prev || progList[0].id.toString());
+        setNewProgramaId((prev) => prev || progList[0].id.toString());
+      }
+      if (asigList.length > 0) {
+        setSelectedAsignaturaId((prev) => prev || asigList[0].id.toString());
+      }
+    } catch {
+      toast.error('No se pudo cargar el catálogo de asignaturas');
+    } finally {
+      setLoadingCatalog(false);
+    }
+  };
+
   // Cargar catálogo al abrir
   useEffect(() => {
-    if (!isOpen) return;
-
-    let isMounted = true;
-    const fetchCatalog = async () => {
-      try {
-        setLoadingCatalog(true);
-        const [progList, asigList] = await Promise.all([
-          academicService.getProgramas(),
-          academicService.getAsignaturas()
-        ]);
-        if (isMounted) {
-          setProgramas(progList);
-          setAsignaturas(asigList);
-          if (progList.length > 0) {
-            setSelectedPrograma(progList[0].id.toString());
-            setNewProgramaId(progList[0].id.toString());
-          }
-          if (asigList.length > 0) {
-            setSelectedAsignaturaId(asigList[0].id.toString());
-          }
-        }
-      } catch {
-        toast.error('No se pudo cargar el catálogo de asignaturas');
-      } finally {
-        if (isMounted) setLoadingCatalog(false);
-      }
-    };
-
-    fetchCatalog();
-    return () => {
-      isMounted = false;
-    };
+    if (isOpen) {
+      fetchCatalog();
+    }
   }, [isOpen]);
 
   // Filtrar asignaturas por programa
@@ -260,9 +256,27 @@ export const LinkCourseModal = ({ isOpen, onClose }) => {
               ) : (
                 <>
                   <div className="modal-form-group">
-                    <label htmlFor="modal-programa" className="modal-label">
-                      Programa Académico
-                    </label>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 6 }}>
+                      <label htmlFor="modal-programa" className="modal-label" style={{ margin: 0 }}>
+                        Programa Académico (Técnico)
+                      </label>
+                      <button
+                        type="button"
+                        style={{
+                          background: 'none',
+                          border: 'none',
+                          color: 'var(--primary-color)',
+                          fontSize: '0.78rem',
+                          fontWeight: 700,
+                          cursor: 'pointer',
+                          padding: 0,
+                          textDecoration: 'underline'
+                        }}
+                        onClick={() => setIsManagingPrograms(true)}
+                      >
+                        Editar programas técnicos
+                      </button>
+                    </div>
                     <select
                       id="modal-programa"
                       className="modal-select"
@@ -349,9 +363,27 @@ export const LinkCourseModal = ({ isOpen, onClose }) => {
           <form onSubmit={handleCrearYVincular}>
             <div className="modal-body">
               <div className="modal-form-group">
-                <label htmlFor="modal-new-programa" className="modal-label">
-                  Programa Académico
-                </label>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 6 }}>
+                  <label htmlFor="modal-new-programa" className="modal-label" style={{ margin: 0 }}>
+                    Programa Académico (Técnico)
+                  </label>
+                  <button
+                    type="button"
+                    style={{
+                      background: 'none',
+                      border: 'none',
+                      color: 'var(--primary-color)',
+                      fontSize: '0.78rem',
+                      fontWeight: 700,
+                      cursor: 'pointer',
+                      padding: 0,
+                      textDecoration: 'underline'
+                    }}
+                    onClick={() => setIsManagingPrograms(true)}
+                  >
+                    Editar programas técnicos
+                  </button>
+                </div>
                 <select
                   id="modal-new-programa"
                   className="modal-select"
@@ -441,6 +473,13 @@ export const LinkCourseModal = ({ isOpen, onClose }) => {
           </form>
         )}
       </div>
+
+      {/* Modal para Gestionar y Editar Programas Técnicos */}
+      <ManageProgramsModal
+        isOpen={isManagingPrograms}
+        onClose={() => setIsManagingPrograms(false)}
+        onProgramsUpdated={fetchCatalog}
+      />
     </div>
   );
 };

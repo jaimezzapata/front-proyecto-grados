@@ -135,10 +135,23 @@
 }
 
 .theme-hover-tab__item.active {
-  background-color: var(--badge-bg);
-  color: var(--badge-text);
-  border-color: var(--border-color);
+  background-color: var(--primary-color);
+  color: var(--primary-contrast, #FFFFFF);
+  border-color: var(--primary-color);
   box-shadow: var(--shadow-sm);
+}
+
+.theme-hover-tab__item.active .theme-hover-tab__item-name {
+  color: var(--primary-contrast, #FFFFFF) !important;
+}
+
+.theme-hover-tab__item.active .theme-hover-tab__item-desc {
+  color: var(--primary-contrast, #FFFFFF) !important;
+  opacity: 0.9;
+}
+
+.theme-hover-tab__item.active .theme-hover-tab__check {
+  color: var(--primary-contrast, #FFFFFF) !important;
 }
 
 .theme-hover-tab__item-info {

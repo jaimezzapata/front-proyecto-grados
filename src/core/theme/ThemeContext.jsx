@@ -8,7 +8,8 @@ export const THEMES = {
   BRUTALISM: 'brutalism',
   POPART: 'popart',
   MEMPHIS: 'memphis',
-  NEON: 'neon'
+  NEON: 'neon',
+  CESDE: 'cesde'
 };
 
 export const MODES = {
@@ -17,6 +18,7 @@ export const MODES = {
 };
 
 const THEME_LABELS = {
+  [THEMES.CESDE]: { name: 'CESDE', desc: 'Magenta institucional, negro y blanco' },
   [THEMES.MINIMALISM]: { name: 'Minimalismo', desc: 'Sobrio, limpio y sin distracciones' },
   [THEMES.BRUTALISM]: { name: 'Neobrutalismo', desc: 'Bordes gruesos y sombras duras' },
   [THEMES.POPART]: { name: 'Pop Art', desc: 'Vibrante, editorial y tipo cómic' },

@@ -1,5 +1,6 @@
 /* ==========================================================================
-   DASHBOARD LAYOUT STYLES (100% Responsivo & Adaptable a todos los temas)
+   DASHBOARD LAYOUT STYLES (Panel de Control con Menú Lateral Derecho)
+   100% Responsivo & Adaptable a todos los temas (Tokens Semánticos)
    ========================================================================== */
 
 .dashboard-layout {
@@ -9,21 +10,43 @@
   background-size: var(--bg-pattern-size);
   color: var(--text-primary);
   font-family: var(--font-family);
-  padding: clamp(14px, 3vw, 28px);
+  padding: 0 0 32px 0;
   box-sizing: border-box;
-  overflow-x: hidden;
+  overflow-x: clip;
   transition: background-color var(--transition-speed) ease, color var(--transition-speed) ease;
 }
 
-/* Header Responsivo */
-.dashboard-header {
+/* Header Superior FIJO (Sticky Top) */
+.dashboard-header-fixed {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background-color: var(--bg-surface);
+  border-bottom: var(--border-width) solid var(--border-color);
+  box-shadow: var(--shadow-sm);
+  width: 100%;
+  padding: 12px clamp(14px, 2.5vw, 24px);
+  box-sizing: border-box;
+  backdrop-filter: blur(8px);
+}
+
+.dashboard-header-inner {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  border-bottom: var(--border-width) solid var(--border-color);
-  padding-bottom: 14px;
   width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+.dashboard-container {
+  max-width: 1440px;
+  margin: 0 auto;
+  width: 100%;
+  padding: 0 clamp(14px, 2.5vw, 24px);
   box-sizing: border-box;
 }
 
@@ -59,7 +82,6 @@
   font-style: normal !important;
 }
 
-/* En Pop Art la fuente Syne es naturalmente más ancha; se normaliza para que tenga el mismo tamaño visual */
 [data-theme="popart"] .dashboard-brand__title {
   font-size: 1.05rem;
   letter-spacing: -0.01em;
@@ -70,80 +92,68 @@
 .dashboard-actions {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
   flex-shrink: 0;
 }
 
-.dashboard-logout-btn {
-  white-space: nowrap;
+/* Botón toggle para el menú lateral derecho en móviles/tablets */
+.dashboard-sidebar-toggle {
+  display: none;
+  align-items: center;
+  gap: 6px;
+  height: 36px;
+  padding: 0 12px;
+  background-color: var(--bg-surface);
+  color: var(--text-primary);
+  border: var(--border-width) solid var(--border-color);
+  border-radius: var(--border-radius-sm);
+  box-shadow: var(--shadow-sm);
+  font-weight: 700;
+  font-size: 0.82rem;
+  cursor: pointer;
+  transition: all 0.15s ease;
 }
 
-/* En móviles y pantallas pequeñas */
-@media (max-width: 600px) {
-  .dashboard-layout {
-    padding: 12px 14px 84px;
-  }
-
-  .dashboard-header {
-    padding-bottom: 12px;
-    gap: 8px;
-  }
-
-  .dashboard-brand {
-    gap: 7px;
-  }
-
-  .dashboard-brand__icon {
-    width: 32px;
-    height: 32px;
-  }
-
-  .dashboard-brand__title {
-    font-size: 1.05rem;
-  }
-
-  [data-theme="popart"] .dashboard-brand__title {
-    font-size: 0.96rem;
-  }
-
-  .dashboard-actions {
-    gap: 8px;
-  }
-
-  .dashboard-logout-btn {
-    height: 34px !important;
-    min-height: 34px !important;
-    padding: 0 10px !important;
-    font-size: 0.8rem !important;
-    gap: 6px !important;
-  }
+.dashboard-sidebar-toggle:hover {
+  background-color: var(--bg-surface-hover);
+  border-color: var(--primary-color);
 }
 
-@media (max-width: 380px) {
-  /* En pantallas extremadamente angostas (< 380px), optimizar texto para cero recorte */
-  .dashboard-logout-btn .core-btn__text {
-    font-size: 0.78rem;
-  }
-}
-
-/* Contenido Principal */
-.dashboard-main {
-  max-width: 1080px;
-  margin: 24px auto;
-  text-align: left;
-  padding: 0 8px;
+/* Disposición Principal: Menú Lateral a la IZQUIERDA (Fijo/Sticky) y Cards a la DERECHA */
+.dashboard-body {
+  display: grid;
+  grid-template-columns: 290px 1fr;
+  gap: 24px;
+  align-items: start;
+  margin-top: 20px;
+  width: 100%;
   box-sizing: border-box;
+}
+
+/* Contenido Principal (Cards & Workspaces) */
+.dashboard-main {
+  width: 100%;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-align: left;
 }
 
 .dashboard-welcome-banner {
   margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
 }
 
 .dashboard-title {
   font-family: var(--font-display);
-  font-size: clamp(1.2rem, 3.8vw, 1.75rem);
-  font-weight: 700;
-  margin: 0 0 8px;
+  font-size: clamp(1.2rem, 3.2vw, 1.65rem);
+  font-weight: 800;
+  margin: 0 0 4px;
   line-height: 1.25;
   word-break: break-word;
   font-style: normal;
@@ -155,11 +165,16 @@
   letter-spacing: -0.01em;
 }
 
+[data-theme="cesde"] .dashboard-title {
+  color: #FFFFFF !important;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
+}
+
 .dashboard-subtitle {
   color: var(--text-secondary);
-  font-size: clamp(0.9rem, 2.5vw, 1.05rem);
+  font-size: clamp(0.85rem, 2.2vw, 0.98rem);
   line-height: 1.5;
-  margin: 0 0 28px;
+  margin: 0;
 }
 
 [data-theme="popart"] .dashboard-subtitle {
@@ -167,14 +182,31 @@
   font-weight: 600;
 }
 
+[data-theme="cesde"] .dashboard-subtitle {
+  color: #FFF0F6 !important;
+  opacity: 0.95;
+}
+
+[data-theme="cesde"] .courses-section-header__title {
+  color: #FFFFFF !important;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
+}
+
+[data-theme="cesde"] .courses-section-header__desc {
+  color: #FFF0F6 !important;
+  opacity: 0.95;
+}
+
+/* Tarjetas Principales del Panel */
 .dashboard-card {
   background-color: var(--bg-surface);
   border: var(--border-width) solid var(--border-color);
   border-radius: var(--border-radius);
   box-shadow: var(--shadow-main);
-  padding: clamp(20px, 4vw, 32px);
+  padding: clamp(18px, 3.5vw, 26px);
   text-align: left;
   box-sizing: border-box;
+  margin-bottom: 20px;
 }
 
 .dashboard-card__title {
@@ -191,4 +223,46 @@
   line-height: 1.6;
   color: var(--text-secondary);
   margin: 0;
+}
+
+/* ==========================================================================
+   BREAKPOINTS RESPONSIVOS
+   ========================================================================== */
+@media (max-width: 1024px) {
+  .dashboard-body {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .dashboard-sidebar-toggle {
+    display: inline-flex;
+  }
+}
+
+@media (max-width: 600px) {
+  .dashboard-layout {
+    padding: 12px 12px 84px;
+  }
+
+  .dashboard-header {
+    padding-bottom: 12px;
+    gap: 8px;
+  }
+
+  .dashboard-brand__icon {
+    width: 32px;
+    height: 32px;
+  }
+
+  .dashboard-brand__title {
+    font-size: 1.05rem;
+  }
+
+  [data-theme="popart"] .dashboard-brand__title {
+    font-size: 0.96rem;
+  }
+
+  .dashboard-actions {
+    gap: 6px;
+  }
 }

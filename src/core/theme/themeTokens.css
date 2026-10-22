@@ -6,6 +6,7 @@
  * - Memphis: Puntos geométricos, bordes gruesos redondeados 18px, sombras duras desplazadas, bloques pastel sólidos (amarillo, cian, rosa).
  * - Minimalismo: Cero patrones, neutro plano, bordes finos 1px, máxima sobriedad.
  * - Cyber Neón: Único con degradados y resplandores luminosos (Glows).
+ * - CESDE: Paleta institucional magenta (#DE005E), negro profundo y blanco con curvas redondeadas.
  */
 
 :root {
@@ -60,44 +61,44 @@
 }
 
 [data-theme="popart"][data-mode="dark"] {
-  --bg-primary: #1A0B2E;
-  --bg-pattern: radial-gradient(rgba(255, 0, 122, 0.16) 1.5px, transparent 1.5px);
-  --bg-pattern-size: 20px 20px;
-  --bg-surface: #271444;
-  --bg-surface-elevated: #FFDE00;
-  --bg-surface-hover: #351C5C;
+  --bg-primary: #0C0C0E; /* Negro tinta de imprenta cómic noir */
+  --bg-pattern: radial-gradient(rgba(255, 222, 0, 0.14) 1.2px, transparent 1.2px);
+  --bg-pattern-size: 18px 18px;
+  --bg-surface: #16161B; /* Gris carbón viñeta de cómic */
+  --bg-surface-elevated: #FFE600;
+  --bg-surface-hover: #212128;
   --text-primary: #FFFFFF;
-  --text-secondary: #E9D5FF;
-  --text-muted: #C084FC;
-  --primary-color: #FF007A;
-  --primary-hover: #FF3399;
-  --primary-contrast: #FFFFFF;
-  --accent-color: #00F0FF;
-  --accent-hover: #33F3FF;
-  --accent-yellow: #FFDE00;
-  --border-color: #FFDE00;
-  --border-subtle: #FF007A;
-  --border-width: 3px;
-  --border-radius: 4px;
+  --text-secondary: #E4E4E7;
+  --text-muted: #A1A1AA;
+  --primary-color: #FFE600; /* Amarillo Cómic Pop Art protagonista */
+  --primary-hover: #FFF04D;
+  --primary-contrast: #000000;
+  --accent-color: #FF007A;  /* Rosa pop secundario */
+  --accent-hover: #FF3399;
+  --accent-yellow: #FFE600;
+  --border-color: #3F3F46;  /* Contorno viñeta cómic */
+  --border-subtle: #27272A;
+  --border-width: 2px;
+  --border-radius: 4px;     /* Esquinas rectas de historieta */
   --border-radius-sm: 2px;
   --border-radius-lg: 6px;
-  --shadow-sm: 3px 3px 0px #FF007A;
-  --shadow-main: 6px 6px 0px #00F0FF;
-  --shadow-elevated: 9px 9px 0px #FFDE00;
+  --shadow-sm: 2px 2px 0px #000000;
+  --shadow-main: 4px 4px 0px #000000;
+  --shadow-elevated: 7px 7px 0px #FFE600;
   --font-family: 'Space Grotesk', system-ui, sans-serif;
   --font-display: 'Space Grotesk', system-ui, sans-serif;
   --font-display-transform: none;
   --font-display-style: normal;
   --font-display-weight: 700;
-  --hazard-bar: repeating-linear-gradient(-45deg, #FF007A, #FF007A 12px, #FFDE00 12px, #FFDE00 24px);
-  --badge-bg: #FFDE00;
+  --hazard-bar: repeating-linear-gradient(-45deg, #FFE600, #FFE600 12px, #000000 12px, #000000 24px);
+  --badge-bg: #FFE600;
   --badge-text: #000000;
   --badge-rotation: -2deg;
-  --card-header-bg: #FF007A;
-  --step-1-color: #00F0FF;
-  --step-2-color: #FFDE00;
+  --card-header-bg: #FFE600;
+  --step-1-color: #00D2FF;
+  --step-2-color: #FFE600;
   --step-3-color: #FF007A;
-  --styles-tab-bg: #FFDE00;
+  --styles-tab-bg: #FFE600;
   --styles-tab-color: #000000;
 }
 
@@ -195,8 +196,8 @@
    ============================================================ */
 [data-theme="memphis"][data-mode="light"] {
   --bg-primary: #FFF8F0;
-  --bg-pattern: radial-gradient(#F87171 1.8px, transparent 1.8px);
-  --bg-pattern-size: 22px 22px;
+  --bg-pattern: radial-gradient(rgba(244, 63, 94, 0.28) 0.9px, transparent 0.9px);
+  --bg-pattern-size: 16px 16px;
   --bg-surface: #FFFFFF;
   --bg-surface-elevated: #FDE047;
   --bg-surface-hover: #FFF1F2;
@@ -212,13 +213,13 @@
   --accent-cyan: #38BDF8;
   --border-color: #1E1B4B;
   --border-subtle: #4F46E5;
-  --border-width: 3px;
-  --border-radius: 18px;
-  --border-radius-sm: 10px;
-  --border-radius-lg: 24px;
+  --border-width: 2.5px;
+  --border-radius: 8px;
+  --border-radius-sm: 5px;
+  --border-radius-lg: 12px;
   --shadow-sm: 3px 3px 0px #1E1B4B;
-  --shadow-main: 6px 6px 0px #1E1B4B;
-  --shadow-elevated: 9px 9px 0px #F43F5E;
+  --shadow-main: 5px 5px 0px #1E1B4B;
+  --shadow-elevated: 8px 8px 0px #F43F5E;
   --font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
   --font-display: 'Plus Jakarta Sans', sans-serif;
   --font-display-transform: uppercase;
@@ -237,46 +238,46 @@
 }
 
 [data-theme="memphis"][data-mode="dark"] {
-  --bg-primary: #151128;
-  --bg-pattern: radial-gradient(#A78BFA 1.8px, transparent 1.8px);
-  --bg-pattern-size: 22px 22px;
-  --bg-surface: #221A3F;
-  --bg-surface-elevated: #FDE047;
-  --bg-surface-hover: #2E2355;
+  --bg-primary: #0F131F; /* Azul medianoche pizarra descansado */
+  --bg-pattern: radial-gradient(rgba(56, 189, 248, 0.16) 1px, transparent 1px);
+  --bg-pattern-size: 16px 16px;
+  --bg-surface: #171C2C; /* Azul pizarra geométrico */
+  --bg-surface-elevated: #F43F5E;
+  --bg-surface-hover: #21273C;
   --text-primary: #FFFFFF;
-  --text-secondary: #DDD6FE;
-  --text-muted: #A78BFA;
-  --primary-color: #A78BFA;
-  --primary-hover: #C4B5FD;
-  --primary-contrast: #151128;
-  --accent-color: #FB7185;
-  --accent-hover: #FDA4AF;
-  --accent-yellow: #FDE047;
+  --text-secondary: #CBD5E1;
+  --text-muted: #64748B;
+  --primary-color: #F43F5E; /* Coral Fresa Memphis distintivo */
+  --primary-hover: #FB7185;
+  --primary-contrast: #FFFFFF;
+  --accent-color: #38BDF8;  /* Cian pastel */
+  --accent-hover: #7DD3FC;
+  --accent-yellow: #FDE047; /* Banana pastel */
   --accent-cyan: #38BDF8;
-  --border-color: #DDD6FE;
-  --border-subtle: #A78BFA;
-  --border-width: 3px;
-  --border-radius: 18px;
-  --border-radius-sm: 10px;
-  --border-radius-lg: 24px;
-  --shadow-sm: 3px 3px 0px #A78BFA;
-  --shadow-main: 6px 6px 0px #FDE047;
-  --shadow-elevated: 9px 9px 0px #FB7185;
+  --border-color: #334155;  /* Borde pizarra descansado */
+  --border-subtle: #1E293B;
+  --border-width: 2px;
+  --border-radius: 8px;     /* Esquinas orgánicas */
+  --border-radius-sm: 5px;
+  --border-radius-lg: 12px;
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.4);
+  --shadow-main: 0 4px 12px rgba(0, 0, 0, 0.5);
+  --shadow-elevated: 0 8px 24px rgba(0, 0, 0, 0.65);
   --font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
   --font-display: 'Plus Jakarta Sans', sans-serif;
   --font-display-transform: uppercase;
   --font-display-style: normal;
   --font-display-weight: 800;
-  --hazard-bar: repeating-linear-gradient(-45deg, #A78BFA, #A78BFA 12px, #FB7185 12px, #FB7185 24px);
-  --badge-bg: #FDE047;
-  --badge-text: #151128;
+  --hazard-bar: repeating-linear-gradient(-45deg, #F43F5E, #F43F5E 12px, #38BDF8 12px, #38BDF8 24px);
+  --badge-bg: #F43F5E;
+  --badge-text: #FFFFFF;
   --badge-rotation: 1.5deg;
-  --card-header-bg: #A78BFA;
+  --card-header-bg: #F43F5E;
   --step-1-color: #38BDF8;
   --step-2-color: #FDE047;
-  --step-3-color: #FB7185;
-  --styles-tab-bg: #FB7185;
-  --styles-tab-color: #151128;
+  --step-3-color: #F43F5E;
+  --styles-tab-bg: #F43F5E;
+  --styles-tab-color: #FFFFFF;
 }
 
 /* ============================================================
@@ -454,4 +455,93 @@
   --styles-tab-bg: #00F0FF;
   --styles-tab-color: #06070B;
 }
+
+/* ============================================================
+   6. CESDE (Identidad Institucional: Máximo Protagonismo Magenta)
+   Fondo institucional magenta fuerte (#DE005E) con superficies de alto contraste blanco/negro
+   ============================================================ */
+[data-theme="cesde"][data-mode="light"] {
+  --bg-primary: #DE005E; /* Magenta Fuerte Institucional Protagonista */
+  --bg-pattern: none;
+  --bg-pattern-size: auto;
+  --bg-surface: #FFFFFF;
+  --bg-surface-elevated: #0F0F12;
+  --bg-surface-hover: #F8F9FA;
+  --text-primary: #0F0F12;
+  --text-secondary: #333333;
+  --text-muted: #666666;
+  --primary-color: #DE005E; /* Magenta Institucional CESDE */
+  --primary-hover: #BF0050;
+  --primary-contrast: #FFFFFF;
+  --accent-color: #0F0F12;  /* Negro institucional para acentos de alto contraste */
+  --accent-hover: #262626;
+  --accent-yellow: #FFD600;
+  --border-color: #0F0F12;  /* Bordes negros nítidos */
+  --border-subtle: #E2E8F0;
+  --border-width: 1.5px;
+  --border-radius: 6px;     /* Esquinas sutiles y sobrias */
+  --border-radius-sm: 4px;  /* Para botones, badges e inputs */
+  --border-radius-lg: 10px; /* Para modales y tarjetas grandes */
+  --shadow-sm: 2px 2px 0px #0F0F12;
+  --shadow-main: 4px 4px 0px #0F0F12;
+  --shadow-elevated: 6px 6px 0px #000000;
+  --font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  --font-display: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  --font-display-transform: none;
+  --font-display-style: normal;
+  --font-display-weight: 700;
+  --hazard-bar: repeating-linear-gradient(-45deg, #DE005E, #DE005E 14px, #0F0F12 14px, #0F0F12 28px);
+  --badge-bg: #0F0F12;
+  --badge-text: #FFFFFF;
+  --badge-rotation: 0deg;
+  --card-header-bg: #DE005E;
+  --step-1-color: #DE005E;
+  --step-2-color: #0F0F12;
+  --step-3-color: #FFFFFF;
+  --styles-tab-bg: #0F0F12;
+  --styles-tab-color: #FFFFFF;
+}
+
+[data-theme="cesde"][data-mode="dark"] {
+  --bg-primary: #121115; /* Fondo carbón oscuro neutro y descansado */
+  --bg-pattern: none;
+  --bg-pattern-size: auto;
+  --bg-surface: #1C1B22; /* Superficie oscura mate de alto confort visual */
+  --bg-surface-elevated: #282632;
+  --bg-surface-hover: #262430;
+  --text-primary: #F5F5F7;
+  --text-secondary: #B5B1C2;
+  --text-muted: #7E798E;
+  --primary-color: #DE005E; /* Magenta institucional CESDE como acento selectivo */
+  --primary-hover: #F01A74;
+  --primary-contrast: #FFFFFF;
+  --accent-color: #282632;
+  --accent-hover: #343242;
+  --accent-yellow: #FFD600;
+  --border-color: #312E3C; /* Bordes suaves que no lastiman la vista */
+  --border-subtle: #24222D;
+  --border-width: 1.5px;
+  --border-radius: 6px;     /* Esquinas sutiles y sobrias */
+  --border-radius-sm: 4px;
+  --border-radius-lg: 10px;
+  --shadow-sm: 0 2px 5px rgba(0, 0, 0, 0.45); /* Sombras naturales y profundas */
+  --shadow-main: 0 4px 14px rgba(0, 0, 0, 0.55);
+  --shadow-elevated: 0 8px 24px rgba(0, 0, 0, 0.7);
+  --font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  --font-display: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  --font-display-transform: none;
+  --font-display-style: normal;
+  --font-display-weight: 700;
+  --hazard-bar: repeating-linear-gradient(-45deg, #DE005E, #DE005E 14px, #1C1B22 14px, #1C1B22 28px);
+  --badge-bg: #DE005E;
+  --badge-text: #FFFFFF;
+  --badge-rotation: 0deg;
+  --card-header-bg: #282632;
+  --step-1-color: #DE005E;
+  --step-2-color: #282632;
+  --step-3-color: #1C1B22;
+  --styles-tab-bg: #DE005E;
+  --styles-tab-color: #FFFFFF;
+}
+
 

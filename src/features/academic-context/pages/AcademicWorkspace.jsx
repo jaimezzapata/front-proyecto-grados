@@ -5,8 +5,9 @@ import { CourseGrid } from '../components/CourseGrid';
 import { PeriodFilterSelector } from '../components/PeriodFilterSelector';
 import { LinkCourseModal } from '../components/LinkCourseModal';
 import { EditCourseModal } from '../components/EditCourseModal';
+import { ManageProgramsModal } from '../components/ManageProgramsModal';
 import { Button } from '../../../core/components/Button';
-import { Plus, UploadCloud, Sparkles, ArrowRight } from 'lucide-react';
+import { Plus, UploadCloud, Sparkles, ArrowRight, GraduationCap } from 'lucide-react';
 import toast from 'react-hot-toast';
 import '../components/courseCard.css';
 
@@ -14,8 +15,9 @@ import '../components/courseCard.css';
  * Workspace de Contexto Académico del Docente (Módulo 1)
  */
 export const AcademicWorkspace = () => {
-  const { selectedAsignatura } = useAcademic();
+  const { selectedAsignatura, refreshAsignaturas } = useAcademic();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isProgramsModalOpen, setIsProgramsModalOpen] = useState(false);
   const [courseToEdit, setCourseToEdit] = useState(null);
 
   const activeCourse = selectedAsignatura?.asignatura || selectedAsignatura;
@@ -51,6 +53,15 @@ export const AcademicWorkspace = () => {
           <div style={{ display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap' }}>
             <PeriodFilterSelector />
             <Button
+              variant="surface"
+              size="sm"
+              icon={<GraduationCap size={16} />}
+              onClick={() => setIsProgramsModalOpen(true)}
+              title="Ver y editar programas académicos técnicos"
+            >
+              Programas Técnicos
+            </Button>
+            <Button
               variant="primary"
               size="sm"
               icon={<Plus size={16} />}
@@ -70,18 +81,14 @@ export const AcademicWorkspace = () => {
       {/* 3. Acciones Rápidas del Flujo (Módulos 2 y 3) */}
       {selectedAsignatura && (
         <section
-          style={{
-            marginTop: 8,
-            paddingTop: 24,
-            borderTop: 'var(--border-width) solid var(--border-subtle)'
-          }}
+          className="workspace-workflow-section"
           aria-labelledby="flujo-acciones-heading"
         >
-          <div style={{ marginBottom: 16 }}>
-            <span style={{ fontSize: '0.74rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.06em', color: 'var(--text-muted)' }}>
+          <div className="workspace-workflow-header">
+            <span className="workspace-workflow-tag">
               Flujo de Trabajo
             </span>
-            <h3 id="flujo-acciones-heading" style={{ fontFamily: 'var(--font-display)', fontSize: '1.2rem', fontWeight: 800, margin: '4px 0 0', fontStyle: 'normal' }}>
+            <h3 id="flujo-acciones-heading" className="workspace-workflow-title">
               ¿Qué deseas realizar en {activeCourse?.codigo || 'este curso'}?
             </h3>
           </div>
@@ -167,6 +174,13 @@ export const AcademicWorkspace = () => {
         isOpen={Boolean(courseToEdit)}
         course={courseToEdit}
         onClose={() => setCourseToEdit(null)}
+      />
+
+      {/* 6. Modal para gestionar y editar programas académicos técnicos */}
+      <ManageProgramsModal
+        isOpen={isProgramsModalOpen}
+        onClose={() => setIsProgramsModalOpen(false)}
+        onProgramsUpdated={refreshAsignaturas}
       />
     </div>
   );

@@ -13,6 +13,25 @@ class AcademicService {
   }
 
   /**
+   * Crea un nuevo programa académico
+   * @param {object} payload - { codigo, nombre }
+   */
+  async createPrograma(payload) {
+    const response = await httpClient.post('/academic/programas', payload);
+    return response.data;
+  }
+
+  /**
+   * Actualiza los datos de un programa académico existente
+   * @param {number|string} id - ID del programa
+   * @param {object} payload - { codigo, nombre }
+   */
+  async updatePrograma(id, payload) {
+    const response = await httpClient.put(`/academic/programas/${id}`, payload);
+    return response.data;
+  }
+
+  /**
    * Obtiene el catálogo de asignaturas disponibles (opcionalmente filtrado por programa)
    */
   async getAsignaturas(programaId = null) {

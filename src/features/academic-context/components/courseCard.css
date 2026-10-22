@@ -138,7 +138,7 @@
   padding: 4px 0;
 }
 
-/* Badge de Grupo en Tarjeta */
+/* Badge de Grupo en Tarjeta (Limpio y de Alto Contraste) */
 .course-card__badge-group {
   display: inline-flex;
   align-items: center;
@@ -147,11 +147,10 @@
   font-weight: 800;
   letter-spacing: 0.03em;
   padding: 3px 8px;
-  background-color: var(--bg-surface-elevated, var(--bg-surface-hover));
-  color: var(--text-primary);
-  border: var(--border-width) solid var(--border-color);
+  background-color: var(--bg-surface-hover);
+  color: var(--primary-color);
+  border: var(--border-width) solid var(--primary-color);
   border-radius: var(--border-radius-sm);
-  box-shadow: var(--shadow-sm);
 }
 
 .course-card__badge-sede {
@@ -566,3 +565,58 @@
     border-bottom-right-radius: 0;
   }
 }
+
+/* ==========================================================================
+   SECCIÓN DE FLUJO DE TRABAJO RÁPIDO EN EL WORKSPACE (ALTO CONTRASTE)
+   ========================================================================== */
+.workspace-workflow-section {
+  margin-top: 14px;
+  padding-top: 24px;
+  border-top: var(--border-width) solid var(--border-subtle);
+}
+
+[data-theme="cesde"] .workspace-workflow-section {
+  border-top-color: rgba(255, 255, 255, 0.35);
+}
+
+.workspace-workflow-header {
+  margin-bottom: 16px;
+}
+
+.workspace-workflow-tag {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.74rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 4px 10px;
+  border-radius: var(--border-radius-sm);
+  background-color: var(--bg-surface);
+  color: var(--text-primary);
+  border: var(--border-width) solid var(--border-color);
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 6px;
+}
+
+[data-theme="cesde"] .workspace-workflow-tag {
+  background-color: #0F0F12;
+  color: #FFFFFF;
+  border-color: #0F0F12;
+  box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.4);
+}
+
+.workspace-workflow-title {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 800;
+  margin: 6px 0 0;
+  color: var(--text-primary);
+  font-style: normal;
+}
+
+[data-theme="cesde"] .workspace-workflow-title {
+  color: #FFFFFF !important;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
+}
+

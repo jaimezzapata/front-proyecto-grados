@@ -161,10 +161,14 @@ Para ofrecer una experiencia visual única y personalizable, el frontend debe so
 5. **Cyber Neón:**
    * **Concepto:** Estética Synthwave / Cyberpunk; resplandores luminosos exteriores (*outer glows* cian y fucsia), tarjetas translúcidas de cristal (*glassmorphism*) y sensación de terminal avanzada de IA.
 
+6. **CESDE (Identidad Institucional):**
+   * **Concepto:** Identidad visual oficial del CESDE | Comfama; paleta vibrante en magenta (`#DE005E`), negro profundo (`#0F0F12`), blanco puro y rosa pastel suave (`#F7EDF3`), formas orgánicas con curvatura pronunciada y tarjetas de gran impacto visual.
+   * **Tokens:** Bordes sólidos de 2px, esquinas redondeadas tipo cápsula/blob (`18px` a `28px`), sombras marcadas contrastantes y acentos magenta institucionales.
+
 ### 9.2 Regla de Oro DRY para Estilos (Prohibida la Lógica Duplicada):
 * **Prohibido condicionar componentes con lógica JSX:** Ningún componente visual debe tener condicionales del tipo `if (theme === 'neon')` o `className={theme === 'brutalist' ? '...' : '...'}`.
 * **Componentes Agnósticos:** Los componentes de `src/core/components/` (`Button`, `Card`, `Input`, `Badge`) deben ser agnósticos y consumir exclusivamente variables CSS globales (ej. `border: var(--border-width) solid var(--border-color); box-shadow: var(--shadow-main);`).
-* **Conmutación Universal:** El estado del tema (`theme`: `minimalism | brutalism | popart | memphis | neon`) y el modo (`mode`: `light | dark`) se gestiona centralizadamente mediante un hook global `useTheme()` en `src/core/theme/ThemeContext.jsx` y se persiste en `localStorage`.
+* **Conmutación Universal:** El estado del tema (`theme`: `minimalism | brutalism | popart | memphis | neon | cesde`) y el modo (`mode`: `light | dark`) se gestiona centralizadamente mediante un hook global `useTheme()` en `src/core/theme/ThemeContext.jsx` y se persiste en `localStorage`.
 
 ---
 
