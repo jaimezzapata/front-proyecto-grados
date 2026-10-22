@@ -606,17 +606,54 @@
   box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.4);
 }
 
-.workspace-workflow-title {
-  font-family: var(--font-display);
-  font-size: 1.25rem;
-  font-weight: 800;
-  margin: 6px 0 0;
-  color: var(--text-primary);
-  font-style: normal;
+.workspace-workflow-compact-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  background-color: var(--bg-surface);
+  border: var(--border-width) solid var(--border-color);
+  border-radius: var(--border-radius);
+  padding: 14px 18px;
+  box-shadow: var(--shadow-sm);
+  flex-wrap: wrap;
 }
 
-[data-theme="cesde"] .workspace-workflow-title {
-  color: #FFFFFF !important;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
+.workspace-workflow-compact-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.workspace-workflow-title-sm {
+  font-family: var(--font-display);
+  font-size: 0.98rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.workspace-workflow-compact-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 680px) {
+  .workspace-workflow-compact-bar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+
+  .workspace-workflow-compact-actions {
+    width: 100%;
+  }
+
+  .workspace-workflow-compact-actions button {
+    flex: 1;
+  }
 }
 

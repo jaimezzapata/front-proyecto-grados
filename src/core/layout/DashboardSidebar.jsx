@@ -1,38 +1,29 @@
 import React from 'react';
 import { useAuth } from '../context/AuthContext';
-import { useAcademic } from '../../features/academic-context/context/AcademicContext';
 import { Avatar } from '../components/Avatar';
 import { getUserFullName } from '../utils/userUtils';
-import { Button } from '../components/Button';
 import {
   LayoutDashboard,
   BookOpen,
   GraduationCap,
-  PlusCircle,
   UploadCloud,
   Sparkles,
   Download,
-  LogOut,
-  X,
-  Building2
+  X
 } from 'lucide-react';
 import './dashboardSidebar.css';
 
 /**
- * Menú Lateral Izquierdo (Sticky Left Sidebar) para el Panel de Control
- * Permanece fijo y visible al desplazarse con el scroll en la sección principal.
+ * Menú Lateral Izquierdo Simplificado y Aligerado (Sticky Left Sidebar)
+ * Sin redundancias, directo a la acción y 100% visible sin scroll excesivo.
  */
 export const DashboardSidebar = ({
   isOpen,
   onClose,
   onOpenProgramsModal,
-  onOpenLinkModal,
   onNavigateSection
 }) => {
-  const { user, logout } = useAuth();
-  const { selectedAsignatura, selectedPeriod } = useAcademic();
-
-  const activeCourse = selectedAsignatura?.asignatura || selectedAsignatura;
+  const { user } = useAuth();
 
   return (
     <>
@@ -51,7 +42,7 @@ export const DashboardSidebar = ({
       >
         {/* Cabecera del Sidebar con botón de cierre móvil */}
         <div className="dashboard-sidebar__header">
-          <span className="dashboard-sidebar__header-tag">Menú Principal</span>
+          <span className="dashboard-sidebar__header-tag">Navegación</span>
           <button
             type="button"
             className="dashboard-sidebar__close-btn"
@@ -62,9 +53,9 @@ export const DashboardSidebar = ({
           </button>
         </div>
 
-        {/* Tarjeta de Perfil del Docente */}
+        {/* Tarjeta de Perfil Compacta */}
         <div className="dashboard-sidebar__profile-card">
-          <Avatar user={user} size="md" />
+          <Avatar user={user} size="sm" />
           <div className="dashboard-sidebar__profile-info">
             <h4 className="dashboard-sidebar__profile-name">
               {getUserFullName(user)}
@@ -72,15 +63,12 @@ export const DashboardSidebar = ({
             <span className="dashboard-sidebar__profile-role">
               Docente CESDE
             </span>
-            <span className="dashboard-sidebar__profile-email">
-              {user?.email || 'docente@cesde.edu.co'}
-            </span>
           </div>
         </div>
 
-        {/* Menú de Navegación Rápida */}
+        {/* Menú de Navegación Unificado y Limpio */}
         <div className="dashboard-sidebar__nav-section">
-          <span className="dashboard-sidebar__section-title">Navegación del Panel</span>
+          <span className="dashboard-sidebar__section-title">Módulos del Sistema</span>
           <nav className="dashboard-sidebar__nav">
             <button
               type="button"
@@ -90,7 +78,7 @@ export const DashboardSidebar = ({
                 if (onClose) onClose();
               }}
             >
-              <LayoutDashboard size={17} />
+              <LayoutDashboard size={16} />
               <span>Vista Principal</span>
             </button>
 
@@ -102,7 +90,7 @@ export const DashboardSidebar = ({
                 if (onClose) onClose();
               }}
             >
-              <BookOpen size={17} />
+              <BookOpen size={16} />
               <span>Mis Asignaturas</span>
             </button>
 
@@ -114,28 +102,10 @@ export const DashboardSidebar = ({
                 if (onClose) onClose();
               }}
             >
-              <GraduationCap size={17} />
+              <GraduationCap size={16} />
               <span>Programas Técnicos</span>
             </button>
 
-            <button
-              type="button"
-              className="dashboard-sidebar__nav-item"
-              onClick={() => {
-                if (onOpenLinkModal) onOpenLinkModal();
-                if (onClose) onClose();
-              }}
-            >
-              <PlusCircle size={17} />
-              <span>Vincular Asignatura</span>
-            </button>
-          </nav>
-        </div>
-
-        {/* Módulos de Generación Pedagógica */}
-        <div className="dashboard-sidebar__nav-section">
-          <span className="dashboard-sidebar__section-title">Flujo de Evaluaciones</span>
-          <nav className="dashboard-sidebar__nav">
             <button
               type="button"
               className="dashboard-sidebar__nav-item"
@@ -144,7 +114,7 @@ export const DashboardSidebar = ({
                 if (onClose) onClose();
               }}
             >
-              <UploadCloud size={17} />
+              <UploadCloud size={16} />
               <span>1. Ingesta de Material</span>
             </button>
 
@@ -156,7 +126,7 @@ export const DashboardSidebar = ({
                 if (onClose) onClose();
               }}
             >
-              <Sparkles size={17} />
+              <Sparkles size={16} />
               <span>2. Motor IA Bloom</span>
             </button>
 
@@ -168,47 +138,10 @@ export const DashboardSidebar = ({
                 if (onClose) onClose();
               }}
             >
-              <Download size={17} />
-              <span>3. Exportación</span>
+              <Download size={16} />
+              <span>3. Historial & Descargas</span>
             </button>
           </nav>
-        </div>
-
-        {/* Resumen del Contexto Activo CESDE */}
-        <div className="dashboard-sidebar__context-widget">
-          <div className="dashboard-sidebar__context-header">
-            <Building2 size={15} style={{ color: 'var(--primary-color)' }} />
-            <span>Contexto CESDE</span>
-          </div>
-          <div className="dashboard-sidebar__context-content">
-            <div className="dashboard-sidebar__context-row">
-              <span className="dashboard-sidebar__context-label">Periodo Activo:</span>
-              <span className="dashboard-sidebar__context-val">{selectedPeriod}</span>
-            </div>
-            <div className="dashboard-sidebar__context-row">
-              <span className="dashboard-sidebar__context-label">Sede:</span>
-              <span className="dashboard-sidebar__context-val">{selectedAsignatura?.sede || 'Medellín'}</span>
-            </div>
-            <div className="dashboard-sidebar__context-row">
-              <span className="dashboard-sidebar__context-label">Curso Activo:</span>
-              <span className="dashboard-sidebar__context-val dashboard-sidebar__context-val--truncate">
-                {activeCourse?.nombre || 'Sin seleccionar'}
-              </span>
-            </div>
-          </div>
-        </div>
-
-        {/* Botón de Salida */}
-        <div className="dashboard-sidebar__footer">
-          <Button
-            variant="outline"
-            size="sm"
-            style={{ width: '100%', justifyContent: 'center' }}
-            icon={<LogOut size={16} />}
-            onClick={logout}
-          >
-            Cerrar Sesión
-          </Button>
         </div>
       </aside>
     </>

@@ -1,79 +1,63 @@
 import React from 'react';
 import { useAcademic } from '../../features/academic-context/context/AcademicContext';
-import { BookOpen, MapPin, GraduationCap, Sparkles } from 'lucide-react';
+import { BookOpen, GraduationCap, ArrowUpRight, CheckCircle2 } from 'lucide-react';
 import './dashboardStats.css';
 
 /**
- * Tarjetas de métricas y resumen rápido para el Panel de Control (Command Center)
+ * Resumen esencial de 2 métricas clave para el Panel de Control
+ * Limpio, balanceado y enfocado en la productividad docente
  */
-export const DashboardStatsCards = ({ onOpenProgramsModal, onOpenLinkModal }) => {
+export const DashboardStatsCards = ({ onOpenLinkModal }) => {
   const { misAsignaturas, selectedAsignatura, selectedPeriod } = useAcademic();
 
   const totalCursos = misAsignaturas ? misAsignaturas.length : 0;
-  const currentSede = selectedAsignatura?.sede || 'Medellín';
-  const currentModalidad = selectedAsignatura?.modalidad || 'Regular';
-  const currentJornada = selectedAsignatura?.jornada || 'Mañana';
+  const currentCourse = selectedAsignatura?.asignatura || selectedAsignatura;
+  const activeCourseName = currentCourse?.nombre;
+  const activeGroup = selectedAsignatura?.grupo || '01';
+  const activeSede = selectedAsignatura?.sede || 'Medellín';
 
   return (
-    <div className="dashboard-stats-grid" aria-label="Métricas rápidas del docente">
-      {/* Card 1: Cursos vinculados */}
-      <div className="dashboard-stat-card" onClick={onOpenLinkModal} role="button" tabIndex={0} title="Ver cursos vinculados">
+    <div className="dashboard-stats-grid" aria-label="Resumen esencial del docente">
+      {/* Métrica 1: Asignaturas asignadas */}
+      <div 
+        className="dashboard-stat-card dashboard-stat-card--interactive" 
+        onClick={onOpenLinkModal} 
+        role="button" 
+        tabIndex={0} 
+        title="Vincular o ver asignaturas del periodo"
+      >
         <div className="dashboard-stat-card__icon dashboard-stat-card__icon--primary">
           <BookOpen size={20} />
         </div>
         <div className="dashboard-stat-card__content">
-          <span className="dashboard-stat-card__label">Cursos en {selectedPeriod}</span>
+          <span className="dashboard-stat-card__label">Mis Asignaturas ({selectedPeriod})</span>
           <div className="dashboard-stat-card__value-row">
             <span className="dashboard-stat-card__value">{totalCursos}</span>
-            <span className="dashboard-stat-card__badge">Asignados</span>
+            <span className="dashboard-stat-card__badge">Grupos Activos</span>
           </div>
+        </div>
+        <div className="dashboard-stat-card__action-hint">
+          <ArrowUpRight size={16} />
         </div>
       </div>
 
-      {/* Card 2: Sede y Modalidad CESDE */}
-      <div className="dashboard-stat-card">
-        <div className="dashboard-stat-card__icon dashboard-stat-card__icon--accent">
-          <MapPin size={20} />
-        </div>
-        <div className="dashboard-stat-card__content">
-          <span className="dashboard-stat-card__label">Sede & Modalidad</span>
-          <div className="dashboard-stat-card__value-row">
-            <span className="dashboard-stat-card__value-sm">{currentSede}</span>
-            <span className="dashboard-stat-card__badge-subtle">{currentModalidad} • {currentJornada}</span>
-          </div>
-        </div>
-      </div>
-
-      {/* Card 3: Formación Técnica CESDE */}
-      <div
-        className="dashboard-stat-card dashboard-stat-card--interactive"
-        onClick={onOpenProgramsModal}
-        role="button"
-        tabIndex={0}
-        title="Gestionar programas técnicos"
+      {/* Métrica 2: Curso en Sesión de Trabajo */}
+      <div 
+        className={`dashboard-stat-card ${activeCourseName ? 'dashboard-stat-card--highlight' : ''}`}
+        title={activeCourseName ? `Trabajando en: ${activeCourseName}` : 'Haz clic en una asignatura para activarla'}
       >
-        <div className="dashboard-stat-card__icon dashboard-stat-card__icon--tech">
-          <GraduationCap size={20} />
+        <div className="dashboard-stat-card__icon dashboard-stat-card__icon--accent">
+          {activeCourseName ? <CheckCircle2 size={20} /> : <GraduationCap size={20} />}
         </div>
         <div className="dashboard-stat-card__content">
-          <span className="dashboard-stat-card__label">Formación Técnica</span>
+          <span className="dashboard-stat-card__label">Asignatura en Sesión</span>
           <div className="dashboard-stat-card__value-row">
-            <span className="dashboard-stat-card__value-sm">Técnico Laboral</span>
-            <span className="dashboard-stat-card__badge-action">Gestionar</span>
-          </div>
-        </div>
-      </div>
-
-      {/* Card 4: Motor IA & Taxonomía Bloom */}
-      <div className="dashboard-stat-card">
-        <div className="dashboard-stat-card__icon dashboard-stat-card__icon--ai">
-          <Sparkles size={20} />
-        </div>
-        <div className="dashboard-stat-card__content">
-          <span className="dashboard-stat-card__label">Motor de Evaluaciones</span>
-          <div className="dashboard-stat-card__value-row">
-            <span className="dashboard-stat-card__value-sm">IA Pedagógica</span>
-            <span className="dashboard-stat-card__badge-live">Activo</span>
+            <span className="dashboard-stat-card__value-sm dashboard-stat-card__value-truncate">
+              {activeCourseName ? `${currentCourse.codigo || 'ASIG'} - ${activeCourseName}` : 'Selecciona un curso de la lista'}
+            </span>
+            <span className={activeCourseName ? "dashboard-stat-card__badge-live" : "dashboard-stat-card__badge-subtle"}>
+              {activeCourseName ? `G${activeGroup} • ${activeSede}` : 'Pendiente'}
+            </span>
           </div>
         </div>
       </div>

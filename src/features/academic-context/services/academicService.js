@@ -50,6 +50,15 @@ class AcademicService {
   }
 
   /**
+   * Obtiene el detalle completo de una asignación específica del docente
+   * @param {number|string} id - ID de la asignación (DocenteAsignatura)
+   */
+  async getAsignacionById(id) {
+    const response = await httpClient.get(`/academic/mis-asignaturas/${id}`);
+    return response.data;
+  }
+
+  /**
    * Vincula una asignatura al docente en un periodo y grupo específico
    * @param {object} payload - { asignatura_id, periodo_academico, grupo }
    */

@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Button } from '../../../core/components/Button';
 import { BookOpen, Check, Layers, Users, Calendar, MapPin, Briefcase, Clock, Pencil } from 'lucide-react';
 import './courseCard.css';
@@ -8,6 +9,7 @@ import './courseCard.css';
  * Estructura homogénea, alineada y simétrica para todos los cursos y grupos
  */
 export const CourseCard = ({ course, isActive, onSelect, onEdit }) => {
+  const navigate = useNavigate();
   const asignatura = course.asignatura || course;
   const grupo = course.grupo || '01';
   const periodo = course.periodo_academico || '2026-2';
@@ -18,8 +20,24 @@ export const CourseCard = ({ course, isActive, onSelect, onEdit }) => {
   const codigo = asignatura.codigo || 'ASIG';
   const nombre = asignatura.nombre || 'Asignatura sin nombre';
 
+  const handleCardClick = (e) => {
+    if (e.target.closest('button')) return;
+    onSelect?.(course);
+    navigate(`/cursos/${course.id}`);
+  };
+
+  const handleNavigateDetail = (e) => {
+    e.stopPropagation();
+    onSelect?.(course);
+    navigate(`/cursos/${course.id}`);
+  };
+
   return (
-    <div className={`course-card ${isActive ? 'course-card--active' : ''}`}>
+    <div
+      className={`course-card ${isActive ? 'course-card--active' : ''}`}
+      onClick={handleCardClick}
+      style={{ cursor: 'pointer' }}
+    >
       {/* Franja de acento superior cuando el grupo está activo */}
       {isActive && <div className="course-card__active-stripe" />}
 
@@ -82,10 +100,11 @@ export const CourseCard = ({ course, isActive, onSelect, onEdit }) => {
           <Button
             variant={isActive ? 'primary' : 'outline'}
             size="sm"
-            onClick={() => onSelect(course)}
+            onClick={handleNavigateDetail}
             icon={isActive ? <Check size={14} /> : <BookOpen size={14} />}
+            title="Abrir detalle y evaluaciones del curso"
           >
-            {isActive ? 'Grupo Activo' : 'Seleccionar'}
+            Ver Exámenes
           </Button>
         </div>
       </div>
